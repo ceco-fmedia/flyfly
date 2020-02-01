@@ -15,13 +15,13 @@ script = ExtResource( 1 )
 position = Vector2( 89.6088, 420.959 )
 
 [node name="engine" parent="." instance=ExtResource( 5 )]
-position = Vector2( 753.218, 121.718 )
+position = Vector2( 396.657, 386.633 )
 
 [node name="lights" parent="." instance=ExtResource( 4 )]
 position = Vector2( 85.9183, 190.452 )
 
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 330.786, 388.065 )
+position = Vector2( 476.847, 133.174 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 100.474, 494.105 )

@@ -15,6 +15,7 @@ var fire_list = []
 func _ready():
 	self._subscribe_to_usage_signals()
 	self._initilize_utilities()
+	
 
 
 func _process(delta):
@@ -39,6 +40,8 @@ func _out_of_gravity_generator():
 func _infront_engine():
 	can_use_scrubber = true
 	get_node("engine").change_level(2)
+	print("current_pos: "+str(get_node("engine").position))
+	_spawn_fire_at_position(Vector2(400,400))
 	
 func _out_of_engine():
 	can_use_scrubber = false
@@ -65,6 +68,10 @@ func _initilize_utilities():
 	gravity_generator_state = {'level':1, 'health':100}
 		
 func _spawn_fire_at_position(pos):
+	print("spawn fire at "+str(pos))
 	var fire = Fire.instance()
 	fire.set_pos(pos)
+	fire.spawn()
 	fire_list.append(fire)
+	add_child(fire)
+		
