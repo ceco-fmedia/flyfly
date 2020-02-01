@@ -1,11 +1,14 @@
 extends Node2D
-
 var current_level = 1
+var attached_utility = null
 signal can_use(current_level, health)
 signal cannot_use
 
 func _ready():
 	pass
+	
+func attach_to_utility(utility):
+	attached_utility = utility
 
 func change_level(level):
 	current_level = level
