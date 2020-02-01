@@ -28,11 +28,12 @@ func _process(delta):
 		wobbleOffset.x += 2 * rotation_degrees * delta
 		set_offset(wobbleOffset)
 	if shake_amount:
-		shakeOffset = wobbleOffset.x + rand_range(-1.0, 1.0) * shake_amount;
-		shakeOffset = rand_range(-1.0, 1.0) * shake_amount;
+		shakeOffset.x = wobbleOffset.x + rand_range(-1.0, 1.0) * shake_amount;
+		shakeOffset.y = rand_range(-1.0, 1.0) * shake_amount;
 		set_offset(shakeOffset)
 	if shakeDuration:
 		shakeDuration -= delta
 		if shakeDuration <= 0:
 			shakeDuration = 0
 			shake_amount = 0
+
