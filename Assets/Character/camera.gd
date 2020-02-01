@@ -33,7 +33,6 @@ func _process(delta):
 		set_offset(wobbleOffset)
 	if duration:
 		duration -= delta
-		print(duration, delta)
 		if duration <= 0:
 			duration = 0
 			maxWobble = 0
