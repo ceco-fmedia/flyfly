@@ -13,6 +13,9 @@ const LASER_DMG = 20
 const DEBRIS_DMG = 5
 const DEBRIS_CHANCE = 50
 const CRACKED_O2_TICKER = 5
+const CRACKED_GRAV_TICKER = 5
+const CRACKED_ENGINE_TICKER = 5
+const MAX_WOBBLE = 10
 var can_use_scrubber = false
 var can_use_engine = false
 var can_use_gravity_generator = false
@@ -111,6 +114,7 @@ func handle_cracking():
 	var most_likely_to_crack = find_most_likely_to_crack()
 	if most_likely_to_crack and will_crack():
 		print('cracked '+most_likely_to_crack)
+		utility_cracked_fx()
 		UTILITY_LIST[most_likely_to_crack]['level'] = 2
 		get_node(most_likely_to_crack).change_level(2)
 		seconds_since_last_break = 0
@@ -132,10 +136,13 @@ func damage_to_hull():
 	var dmg = 0
 	if dice > laser_chance:
 		dmg = LASER_DMG
+#		hit_by_laser_fx()
 		print("hit_by_laser")
 	elif randi()%100 > DEBRIS_CHANCE:
 		dmg = DEBRIS_DMG
-		print("hit_by_debris")
+#		print("hit_by_debris")
+		hit_by_debris_fx()
+		
 	if dmg:
 		hull_hp -= dmg
 		if hull_hp<=0:
@@ -154,25 +161,61 @@ func damage_to_hull():
 	return false	
 	
 func o2_falling():
-	if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
+	if UTILITY_LIST['oxygen_scrubber']['level'] > 1:
+		var wobble = int((100 - UTILITY_LIST['oxygen_scrubber']['health'])/3)
+		player_instance.wobble(wobble if wobble < MAX_WOBBLE else MAX_WOBBLE)
 		UTILITY_LIST['oxygen_scrubber']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['oxygen_scrubber']['health'] <= 0:
-			UTILITY_LIST['oxygen_scrubber']['level'] = 3
-			hull_instance.change_level(UTILITY_LIST['oxygen_scrubber']['level'])
-			print("O2 needs parts")
+			if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
+				UTILITY_LIST['oxygen_scrubber']['level'] = 3
+				UTILITY_LIST['oxygen_scrubber']['health'] = 100
+				hull_instance.change_level(UTILITY_LIST['oxygen_scrubber']['level'])
+				print("O2 needs parts")
+				return true
+			else: 
+				print("death by oxygen deprevation")
+	return false
+	
+func engine_damage():
+	if UTILITY_LIST['engine']['level'] == 2:
+		UTILITY_LIST['engine']['health'] -= CRACKED_O2_TICKER
+		if UTILITY_LIST['engine']['health'] <= 0:
+			UTILITY_LIST['engine']['level'] = 3
+			hull_instance.change_level(UTILITY_LIST['engine']['level'])
+			print("engine needs parts")
+			return true
+	return false
+	
+func gravity_malfunction():
+	if UTILITY_LIST['gravity_generator']['level'] == 2:
+		UTILITY_LIST['gravity_generator']['health'] -= CRACKED_GRAV_TICKER
+		if UTILITY_LIST['gravity_generator']['health'] <= 0:
+			UTILITY_LIST['gravity_generator']['level'] = 3
+			hull_instance.change_level(UTILITY_LIST['gravity_generator']['level'])
+			print("gravity_generator needs parts")
+			lose_gravity()
 			return true
 	return false
 		
-			
+func hit_by_debris_fx():
+	player_instance.shake(1,1)
+
+func hit_by_laser_fx():
+	player_instance.shake(2,1)
+	
+func utility_cracked_fx():
+	player_instance.shake(5,1)
+	
+func lose_gravity():
+	player_instance.hasGravity = false
+	
 		
-		
-	
-	
-	
 func _on_DirectorTimer_timeout():
-	var is_system_cracked = handle_cracking()
-	var is_hull_hit = damage_to_hull()
-	var cracked_o2 = o2_falling()
+	var _is_system_cracked = handle_cracking()
+	var _is_hull_hit = damage_to_hull()
+	var _cracked_o2 = o2_falling()
+	var _cracked_engine = engine_damage()
+	var _cracked_grav = gravity_malfunction()
 	
 		
 
