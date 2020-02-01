@@ -25,8 +25,8 @@ var grabLeftTime = 0
 func wobble(maxRotation):
 	$camera.wobble(maxRotation)
 
-func shake(amount):
-	$camera.wobble(amount)
+func shake(amount, duration = 0):
+	$camera.wobble(amount, duration)
 
 func _physics_process(delta):
 	var leftPressed = Input.is_action_pressed("ui_left")

@@ -14,9 +14,11 @@ func wobble(maxRotation):
 		shake(2)
 		duration = 1
 
-func shake(amount):
+func shake(amount, shakeDuration = 0):
 	maxWobble = 0
 	shake_amount = amount
+	if shakeDuration:
+		duration = shakeDuration
 
 func _process(delta):
 	if maxWobble:
