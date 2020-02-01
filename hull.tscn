@@ -24,10 +24,10 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 35.5933
-height = 150.168
+radius = 43.0
+height = 94.0
 
-[node name="oxygen_scrubber" type="Area2D"]
+[node name="hull" type="Area2D"]
 collision_layer = 2
 script = ExtResource( 4 )
 __meta__ = {
