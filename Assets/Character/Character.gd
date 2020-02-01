@@ -6,7 +6,7 @@ export(float) var LAND_SIDE_SPEED = 200.0
 export(float) var AIR_SIDE_ACCELERATION = 800.0
 
 var velocity = Vector2()
-var landed = true
+var landed = false
 var upVector = Vector2(0, -1)
 
 func _physics_process(delta):
@@ -41,8 +41,10 @@ func _physics_process(delta):
 	$sprite.set_flip_h(velocity.x >= 0)
 	var anim = "Idle"
 	if landed:
+		if velocity.y < 0:
+			velocity.y = 0
 		if abs(velocity.x) > 20:
-			anim = "RunSide"
+			anim = "MoveSide"
 	else:
 		if abs(velocity.y) < 50:
 			anim = "HighPoint"
