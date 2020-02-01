@@ -54,7 +54,7 @@ func _physics_process(delta):
 		else:
 			anim = "Fall"
 	$sprite.play(anim)
-	camera_drunk()
+	# camera_drunk()
 	
 	
 func camera_drunk():

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Platform.png-8bd142740c038c00ece600e6631a123b.stex"
+path="res://.import/Platform.png-5dbbaab7e129631e53d5ee94ef97f7b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Platform/Platform.png"
-dest_files=[ "res://.import/Platform.png-8bd142740c038c00ece600e6631a123b.stex" ]
+source_file="res://Assets/Platform/Platform.png"
+dest_files=[ "res://.import/Platform.png-5dbbaab7e129631e53d5ee94ef97f7b6.stex" ]
 
 [params]
 
