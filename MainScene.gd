@@ -11,6 +11,7 @@ const MINIMUM_HULL_BREACH_SECONDS = 2
 const LASER_DMG = 20
 const DEBRIS_DMG = 5
 const DEBRIS_CHANCE = 50
+const CRACKED_O2_TICKER = 25
 var can_use_scrubber = false
 var can_use_engine = false
 var can_use_gravity_generator = false
@@ -116,7 +117,7 @@ func handle_cracking():
 		return false
 
 func damage_to_hull():
-	if seconds_since_hull_breach>= MINIMUM_HULL_BREACH_SECONDS:
+	if seconds_since_hull_breach< MINIMUM_HULL_BREACH_SECONDS:
 		seconds_since_hull_breach+=1
 		return false
 	var hull_hp = UTILITY_LIST['hull']['health']
@@ -146,11 +147,28 @@ func damage_to_hull():
 	seconds_since_hull_breach += 1
 	return false	
 	
+func o2_falling():
+	print(UTILITY_LIST['oxygen_scrubber']['health'])
+	if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
+		UTILITY_LIST['oxygen_scrubber']['health'] -= CRACKED_O2_TICKER
+		if UTILITY_LIST['oxygen_scrubber']['health'] <= 0:
+			UTILITY_LIST['oxygen_scrubber']['level'] = 3
+			hull_instance.change_level(UTILITY_LIST['oxygen_scrubber']['level'])
+			print("O2 needs parts")
+			return true
+	return false
+		
+			
+		
+		
+	
 	
 	
 func _on_DirectorTimer_timeout():
 	var is_system_cracked = handle_cracking()
 	var is_hull_hit = damage_to_hull()
+	var cracked_o2 = o2_falling()
+	
 		
 
 	
