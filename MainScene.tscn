@@ -31,31 +31,31 @@ position = Vector2( 85.9183, 190.452 )
 position = Vector2( 476.847, 133.174 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
-position = Vector2( 688.208, 604.404 )
+position = Vector2( 116.83, 637.808 )
 
 [node name="platform1" parent="." instance=ExtResource( 7 )]
-position = Vector2( 788.953, 689.905 )
+position = Vector2( 217.575, 723.309 )
 scale = Vector2( 5, 1 )
 
 [node name="platform2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1140.08, 668.063 )
+position = Vector2( 568.702, 701.467 )
 rotation = -0.125664
 scale = Vector2( 5, 1 )
 
 [node name="DirectorTimer" type="Timer" parent="."]
 
 [node name="platform3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1304.26, 307.257 )
+position = Vector2( 732.882, 340.661 )
 rotation = 1.5708
 scale = Vector2( 10, 1 )
 
 [node name="platform4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 601.219, 347.969 )
+position = Vector2( 29.8411, 381.373 )
 rotation = 1.5708
 scale = Vector2( 10, 1 )
 
 [node name="platform5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 952.579, -15.8885 )
+position = Vector2( 381.201, 17.5151 )
 rotation = -0.0523599
 scale = Vector2( 10.3, 1 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
