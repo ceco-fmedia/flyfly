@@ -33,3 +33,6 @@ position = Vector2( 98.4737, 565.105 )
 position = Vector2( 308.474, 543.263 )
 rotation = -0.125664
 scale = Vector2( 5, 1 )
+
+[node name="DirectorTimer" type="Timer" parent="."]
+[connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
