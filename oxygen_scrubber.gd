@@ -12,8 +12,8 @@ func change_level(level):
 	current_level = level
 	$Anim.play("level_"+str(level))
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(_body):
 	emit_signal("cannot_use")
 	
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	emit_signal("can_use")

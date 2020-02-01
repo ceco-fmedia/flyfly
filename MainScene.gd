@@ -1,5 +1,4 @@
 extends Node2D
-var Fire = preload("res://fire.tscn")
 const UTILITY_LIST = ['oxygen_scrubber', 'engine', 'lights', 'gravity_generator']
 var oxygen_scrubber_state = {'level':null, 'health':null}
 var engine_state = {'level':null, 'health':null}
@@ -18,7 +17,7 @@ func _ready():
 	
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _infront_oxygen_scrubber():
@@ -40,8 +39,6 @@ func _out_of_gravity_generator():
 func _infront_engine():
 	can_use_scrubber = true
 	get_node("engine").change_level(2)
-	print("current_pos: "+str(get_node("engine").position))
-	_spawn_fire_at_position(Vector2(400,400))
 	
 func _out_of_engine():
 	can_use_scrubber = false
@@ -55,7 +52,6 @@ func _out_of_lights():
 	can_use_lights = false
 	get_node("lights").change_level(1)
 	
-	
 func _subscribe_to_usage_signals():
 	for utility in UTILITY_LIST:
 		get_node(utility).connect("can_use", self, "_infront_"+utility)
@@ -66,12 +62,4 @@ func _initilize_utilities():
 	engine_state = {'level':1, 'health':100}
 	lights_state = {'level':1, 'health':100}
 	gravity_generator_state = {'level':1, 'health':100}
-		
-func _spawn_fire_at_position(pos):
-	print("spawn fire at "+str(pos))
-	var fire = Fire.instance()
-	fire.set_pos(pos)
-	fire.spawn()
-	fire_list.append(fire)
-	add_child(fire)
 		
