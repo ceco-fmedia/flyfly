@@ -50,7 +50,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 16 ), ExtResource( 1 ), ExtResource( 15 ) ],
 "loop": true,
-"name": "RunSide",
+"name": "MoveSide",
 "speed": 5.0
 } ]
 
@@ -65,9 +65,13 @@ script = ExtResource( 17 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 1
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 10.7289 )
 shape = SubResource( 2 )
+
+[node name="camera" type="Camera2D" parent="."]
+rotating = true
+current = true
+limit_smoothed = true
+smoothing_enabled = true

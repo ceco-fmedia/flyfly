@@ -4,11 +4,12 @@ export(float) var GRAVITY = 800.0
 export(float) var JUMP_FORCE = 600.0
 export(float) var LAND_SIDE_SPEED = 200.0
 export(float) var AIR_SIDE_ACCELERATION = 800.0
+export(float) var shake_amount = 2;
 
 var velocity = Vector2()
 var landed = false
 var upVector = Vector2(0, -1)
-
+var camera
 func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	if landed:
@@ -53,9 +54,20 @@ func _physics_process(delta):
 		else:
 			anim = "Fall"
 	$sprite.play(anim)
-		
+	camera_drunk()
+	
+	
+func camera_drunk():
+	camera.rotation = 45
+
+func camera_shake():
+	$camera.set_offset(Vector2( \
+		rand_range(-1.0, 1.0) * shake_amount, \
+		rand_range(-1.0, 1.0) * shake_amount \
+	))
 
 	
 
 func _ready():
+	camera = $camera
 	pass # Replace with function body.
