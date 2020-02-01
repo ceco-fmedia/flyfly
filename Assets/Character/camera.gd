@@ -1,23 +1,23 @@
 extends Camera2D
 
 var wobbleOffset = Vector2()
+var shakeOffset = Vector2()
 var maxWobble = 0
 var wobbleSpeed = 8
 var shake_amount = 0
-var duration = 0;
+var shakeDuration = 0;
 
 func wobble(maxRotation):
 	maxWobble = maxRotation
-	shake_amount = 0
-	wobbleOffset.y = 0
 	if maxWobble == 0:
+		rotation = 0
+		wobbleOffset.x = 0
 		shake(2, 1)
 
-func shake(amount, shakeDuration = 0):
-	maxWobble = 0
+func shake(amount, duration = 0):
 	shake_amount = amount
-	if shakeDuration:
-		duration = shakeDuration
+	if duration:
+		shakeDuration = duration
 
 func _process(delta):
 	if maxWobble:
@@ -28,14 +28,11 @@ func _process(delta):
 		wobbleOffset.x += 2 * rotation_degrees * delta
 		set_offset(wobbleOffset)
 	if shake_amount:
-		wobbleOffset.x = rand_range(-1.0, 1.0) * shake_amount;
-		wobbleOffset.y = rand_range(-1.0, 1.0) * shake_amount;
-		set_offset(wobbleOffset)
-	if duration:
-		duration -= delta
-		if duration <= 0:
-			duration = 0
-			maxWobble = 0
+		shakeOffset = wobbleOffset.x + rand_range(-1.0, 1.0) * shake_amount;
+		shakeOffset = rand_range(-1.0, 1.0) * shake_amount;
+		set_offset(shakeOffset)
+	if shakeDuration:
+		shakeDuration -= delta
+		if shakeDuration <= 0:
+			shakeDuration = 0
 			shake_amount = 0
-			wobbleOffset.x = 0
-			wobbleOffset.y = 0
