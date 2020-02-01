@@ -133,7 +133,7 @@ func _physics_process(delta):
 			if isJump:
 				velocity *= ZEROG_JUMP_VELOCITY
 			else:
-				velocity *= ZEROG_CRAWL_VELOCITY
+				velocity *= 0
 		else:
 			if upPressed:
 				if velocity.y > -ZEROG_MAX_VELOCITY:
@@ -181,35 +181,34 @@ func _physics_process(delta):
 		
 		if grabbed:
 			anim = "Grab0G"
+			if grabbed == LEFT:
+				rotation_degrees = 90
+			elif grabbed == UP:
+				rotation_degrees = 180
+			if grabbed == RIGHT:
+				rotation_degrees = 270
+			elif grabbed == DOWN:
+				rotation_degrees = 0
 		elif leftPressed || rightPressed || upPressed || downPressed:
 			anim = "Swim"
-			print(leftPressed, rightPressed, upPressed, downPressed)
 
 			if upPressed:
 				if leftPressed:
-					print("UP left")
 					rotation_degrees = 315
 				elif rightPressed:
-					print("UP right")
 					rotation_degrees = 45
 				else:
-					print("UP")
 					rotation_degrees = 0
 			elif downPressed:
 				if leftPressed:
-					print("Down left")
 					rotation_degrees = 225
 				elif rightPressed:
-					print("Down right")
 					rotation_degrees = 135
 				else:
-					print("Down")
 					rotation_degrees = 180
 			elif leftPressed:
-				print("Left");
 				rotation_degrees = 270
 			elif rightPressed:
-				print("RIght");
 				rotation_degrees = 90
 		else:
 			anim = "Idle0G"
@@ -221,3 +220,5 @@ func setGravity(isOn):
 	hasGravity = isOn
 	if isOn:
 		rotation = 0
+	else:
+		$sprite.set_flip_h(false)
