@@ -182,36 +182,37 @@ func _physics_process(delta):
 		if grabbed:
 			anim = "Grab0G"
 			if grabbed == LEFT:
-				rotation_degrees = 90
+				$sprite.rotation_degrees = 90
 			elif grabbed == UP:
-				rotation_degrees = 180
+				$sprite.rotation_degrees = 180
 			if grabbed == RIGHT:
-				rotation_degrees = 270
+				$sprite.rotation_degrees = 270
 			elif grabbed == DOWN:
-				rotation_degrees = 0
+				$sprite.rotation_degrees = 0
 		elif leftPressed || rightPressed || upPressed || downPressed:
 			anim = "Swim"
 
 			if upPressed:
 				if leftPressed:
-					rotation_degrees = 315
+					$sprite.rotation_degrees = 315
 				elif rightPressed:
-					rotation_degrees = 45
+					$sprite.rotation_degrees = 45
 				else:
-					rotation_degrees = 0
+					$sprite.rotation_degrees = 0
 			elif downPressed:
 				if leftPressed:
-					rotation_degrees = 225
+					$sprite.rotation_degrees = 225
 				elif rightPressed:
-					rotation_degrees = 135
+					$sprite.rotation_degrees = 135
 				else:
-					rotation_degrees = 180
+					$sprite.rotation_degrees = 180
 			elif leftPressed:
-				rotation_degrees = 270
+				$sprite.rotation_degrees = 270
 			elif rightPressed:
-				rotation_degrees = 90
+				$sprite.rotation_degrees = 90
 		else:
 			anim = "Idle0G"
+		$CollisionShape2D.rotation_degrees = $sprite.rotation_degrees
 	
 	
 	$sprite.play(anim)
