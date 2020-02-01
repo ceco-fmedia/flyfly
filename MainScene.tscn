@@ -45,17 +45,17 @@ scale = Vector2( 5, 1 )
 [node name="DirectorTimer" type="Timer" parent="."]
 
 [node name="platform3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1304.26, 482.21 )
+position = Vector2( 1304.26, 307.257 )
 rotation = 1.5708
-scale = Vector2( 5, 1 )
+scale = Vector2( 10, 1 )
 
 [node name="platform4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 600.053, 526.421 )
+position = Vector2( 601.219, 347.969 )
 rotation = 1.5708
-scale = Vector2( 5, 1 )
+scale = Vector2( 10, 1 )
 
 [node name="platform5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 952.579, 331.684 )
+position = Vector2( 952.579, -15.8885 )
 rotation = -0.0523599
 scale = Vector2( 10.3, 1 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]

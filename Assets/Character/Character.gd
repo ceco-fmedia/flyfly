@@ -35,6 +35,8 @@ func _physics_process(delta):
 	var jumpPressed = Input.is_action_just_pressed("ui_up")
 	var downPressed = Input.is_action_pressed("ui_down")
 	var anim = "Idle"
+	if Input.is_action_just_pressed("ui_accept"):
+		hasGravity = !hasGravity
 	
 	if hasGravity:
 		if grabbed:
@@ -178,9 +180,39 @@ func _physics_process(delta):
 			grabbed = 0
 		
 		if grabbed:
-			anim = "GrabSlide"
+			anim = "Grab0G"
+		elif leftPressed || rightPressed || upPressed || downPressed:
+			anim = "Swim"
+			print(leftPressed, rightPressed, upPressed, downPressed)
+
+			if upPressed:
+				if leftPressed:
+					print("UP left")
+					rotation_degrees = 315
+				elif rightPressed:
+					print("UP right")
+					rotation_degrees = 45
+				else:
+					print("UP")
+					rotation_degrees = 0
+			elif downPressed:
+				if leftPressed:
+					print("Down left")
+					rotation_degrees = 225
+				elif rightPressed:
+					print("Down right")
+					rotation_degrees = 135
+				else:
+					print("Down")
+					rotation_degrees = 180
+			elif leftPressed:
+				print("Left");
+				rotation_degrees = 270
+			elif rightPressed:
+				print("RIght");
+				rotation_degrees = 90
 		else:
-			anim = "Idle"
+			anim = "Idle0G"
 	
 	
 	$sprite.play(anim)
