@@ -36,7 +36,7 @@ func _physics_process(delta):
 	var downPressed = Input.is_action_pressed("ui_down")
 	var anim = "Idle"
 	if Input.is_action_just_pressed("ui_accept"):
-		hasGravity = !hasGravity
+		setGravity(!hasGravity)
 	
 	if hasGravity:
 		if grabbed:
@@ -217,3 +217,7 @@ func _physics_process(delta):
 	
 	$sprite.play(anim)
 
+func setGravity(isOn):
+	hasGravity = isOn
+	if isOn:
+		rotation = 0
