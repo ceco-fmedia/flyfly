@@ -47,7 +47,16 @@ func _ready():
 	
 
 func _process(_delta):
-	pass
+	print(UTILITY_LIST['oxygen_scrubber'])
+	for utility in ['oxygen_scrubber','gravity_generator','lights', 'engine']:
+		var node = get_node(utility)
+		if node.has_node("HP"):
+			if UTILITY_LIST[utility]['level'] == 2:
+				if node.has_node("HP"):
+					node.get_node("HP").scale.x = UTILITY_LIST[utility]['health']/100.0
+			elif UTILITY_LIST[utility]['level'] == 3:
+				node.get_node("HP").visible = false
+			
 
 func _infront_oxygen_scrubber():
 	can_use_scrubber = true
@@ -165,11 +174,12 @@ func o2_falling():
 		var wobble = int((100 - UTILITY_LIST['oxygen_scrubber']['health'])/3)
 		player_instance.wobble(wobble if wobble < MAX_WOBBLE else MAX_WOBBLE)
 		UTILITY_LIST['oxygen_scrubber']['health'] -= CRACKED_O2_TICKER
+		
 		if UTILITY_LIST['oxygen_scrubber']['health'] <= 0:
 			if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
 				UTILITY_LIST['oxygen_scrubber']['level'] = 3
 				UTILITY_LIST['oxygen_scrubber']['health'] = 100
-				hull_instance.change_level(UTILITY_LIST['oxygen_scrubber']['level'])
+				get_node("oxygen_scrubber").change_level(UTILITY_LIST['oxygen_scrubber']['level'])
 				print("O2 needs parts")
 				return true
 			else: 
@@ -181,7 +191,7 @@ func engine_damage():
 		UTILITY_LIST['engine']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['engine']['health'] <= 0:
 			UTILITY_LIST['engine']['level'] = 3
-			hull_instance.change_level(UTILITY_LIST['engine']['level'])
+			get_node("engine").change_level(UTILITY_LIST['engine']['level'])
 			print("engine needs parts")
 			return true
 	return false
@@ -191,7 +201,7 @@ func gravity_malfunction():
 		UTILITY_LIST['gravity_generator']['health'] -= CRACKED_GRAV_TICKER
 		if UTILITY_LIST['gravity_generator']['health'] <= 0:
 			UTILITY_LIST['gravity_generator']['level'] = 3
-			hull_instance.change_level(UTILITY_LIST['gravity_generator']['level'])
+			get_node("gravity_generator").change_level(UTILITY_LIST['gravity_generator']['level'])
 			print("gravity_generator needs parts")
 			lose_gravity()
 			return true
