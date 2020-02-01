@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Character/CHR_RunSide/CHR_Run_Side_0007.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Character/CHR_IdleDown/CHR_Idle_Down_0005.png" type="Texture" id=2]
@@ -26,17 +26,24 @@
 [ext_resource path="res://Assets/Character/CHR_DashSide/CHR_Dash_Side_0008.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Character/CHR_DashSide/CHR_Dash_Side_0007.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Character/camera.gd" type="Script" id=26]
+[ext_resource path="res://assets/Character/CHR_RunSide/CHR_Run_Side_0005.png" type="Texture" id=27]
+[ext_resource path="res://assets/Character/CHR_RunSide/CHR_Run_Side_0006.png" type="Texture" id=28]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "GrabSlide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "GrabSlideFast",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 16 ), ExtResource( 1 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "MoveSide",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -47,12 +54,17 @@ animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 11 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 14 ), ExtResource( 3 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "Idle",
-"speed": 5.0
+"speed": 24.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 24 ) ],
 "loop": true,
 "name": "Jump",
-"speed": 5.0
+"speed": 24.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 16 ), ExtResource( 1 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "MoveSide",
+"speed": 24.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -65,7 +77,7 @@ script = ExtResource( 17 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "Idle"
+animation = "GrabSlideFast"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 10.7289 )

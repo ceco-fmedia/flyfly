@@ -39,7 +39,6 @@ func _physics_process(delta):
 		velocity.x = JUMP_FORCE * grabbed / 2
 		grabbed = 0
 	elif grabbed and not (leftPressed or rightPressed):
-		print("fake wall grab")
 		velocity.x -= grabbed
 	else:
 		if leftPressed:
@@ -69,10 +68,14 @@ func _physics_process(delta):
 	$sprite.set_flip_h(velocity.x >= 0)
 	var anim = "Idle"
 	if landed:
-		if velocity.y < 0:
-			velocity.y = 0
 		if abs(velocity.x) > 20:
 			anim = "MoveSide"
+	elif grabbed:
+		$sprite.set_flip_h(grabbed < 0)
+		if downPressed:
+			anim = "GrabSlideFast"
+		else:
+			anim = "GrabSlide"
 	else:
 		if abs(velocity.y) < 50:
 			anim = "HighPoint"
