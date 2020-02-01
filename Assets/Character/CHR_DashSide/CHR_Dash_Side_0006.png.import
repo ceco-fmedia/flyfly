@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CHR_Dash_Side_0006.png-cf73260e42f7d1ba2e6d54c765dd9c3c.stex"
+path="res://.import/CHR_Dash_Side_0006.png-b2f1db5177d712a8667207d607178c40.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Character/CHR_DashSide/CHR_Dash_Side_0006.png"
-dest_files=[ "res://.import/CHR_Dash_Side_0006.png-cf73260e42f7d1ba2e6d54c765dd9c3c.stex" ]
+source_file="res://assets/Character/CHR_DashSide/CHR_Dash_Side_0006.png"
+dest_files=[ "res://.import/CHR_Dash_Side_0006.png-b2f1db5177d712a8667207d607178c40.stex" ]
 
 [params]
 
