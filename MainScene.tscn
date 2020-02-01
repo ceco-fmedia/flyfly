@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://oxygen_scrubber.tscn" type="PackedScene" id=2]
@@ -7,9 +7,13 @@
 [ext_resource path="res://engine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Character/Character.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Platform/Platform.tscn" type="PackedScene" id=7]
+[ext_resource path="res://hull.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="hull" parent="." instance=ExtResource( 8 )]
+position = Vector2( 706.943, 385.879 )
 
 [node name="oxygen_scrubber" parent="." instance=ExtResource( 2 )]
 position = Vector2( 89.6088, 420.959 )
@@ -24,26 +28,15 @@ position = Vector2( 85.9183, 190.452 )
 position = Vector2( 476.847, 133.174 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
-position = Vector2( 661, 619.368 )
+position = Vector2( 100.474, 494.105 )
 
 [node name="platform1" parent="." instance=ExtResource( 7 )]
-position = Vector2( 765.842, 690.368 )
-scale = Vector2( 5, 1 )
+position = Vector2( 98.4737, 565.105 )
 
 [node name="platform2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1117.95, 668.526 )
+position = Vector2( 308.474, 543.263 )
 rotation = -0.125664
 scale = Vector2( 5, 1 )
 
-
 [node name="DirectorTimer" type="Timer" parent="."]
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
-[node name="platform3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1304.26, 482.21 )
-rotation = 1.5708
-scale = Vector2( 5, 1 )
-
-[node name="platform4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 600.053, 526.421 )
-rotation = 1.5708
-scale = Vector2( 5, 1 )
