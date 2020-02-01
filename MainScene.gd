@@ -100,28 +100,39 @@ func fix_utility(utility):
 	if UTILITY_LIST[utility]['level']>1 and UTILITY_LIST[utility]['health']<100:
 		UTILITY_LIST[utility]['health']+=FIX_PER_ACTION
 		if UTILITY_LIST[utility]['health']>=100:
+			seconds_since_last_break = 0
+			seconds_since_hull_breach = 0
 			UTILITY_LIST[utility]['health'] = 100
 			UTILITY_LIST[utility]['level']-=1
-			get_node(utility).change_level(UTILITY_LIST[utility]['level'])
+			var node = get_node(utility)
+			node.change_level(UTILITY_LIST[utility]['level'])
+			node.get_node("HP").visible = true
 			
 			
 	pass
 	
 func action_suppression():
+	var utility = null
 	print(can_use_fire_sup1,can_use_fire_sup2,can_use_fire_sup3,can_use_fire_sup4)
 	if can_use_fire_sup1:
-		print("suppress 1")
-		return true
+		utility = get_node("fire_suppression1").attached_utility
+		print(utility)
 	elif can_use_fire_sup2:
-		print("suppress 2")
-		return true
+		print(utility)
+		utility = get_node("fire_suppression2").attached_utility
 	elif can_use_fire_sup3:
-		print("suppress 3")
-		return true
+		print(utility)
+		utility = get_node("fire_suppression3").attached_utility
 	elif can_use_fire_sup4:
-		print("suppress 4")
-		return true
-	
+		print(utility)
+		utility = get_node("fire_suppression4").attached_utility
+	if utility:
+		for fire in fire_list:
+			if fire.attached_utility == utility:
+				var pos = fire_list.find_last(fire)
+				fire_list.remove(pos)
+				fire.queue_free()
+				print(fire_list)
 	return false
 
 func subscribe_to_suppression():
@@ -163,6 +174,7 @@ func _process(_delta):
 					node.get_node("HP").scale.x = UTILITY_LIST[utility]['health']/100.0
 			elif UTILITY_LIST[utility]['level'] == 3:
 				node.get_node("HP").visible = false
+			restore_env(utility)
 	for utility in ['hull', 'hull2']:
 		var node = get_node(utility)
 		if node.has_node("HP"):
@@ -170,8 +182,11 @@ func _process(_delta):
 			actual_hp += UTILITY_LIST[utility]["health"]/3
 			node.get_node("HP").scale.x = actual_hp/100.0
 			
-		
-			
+func restore_env(utility):
+	if utility == 'gravity_generrator':
+		restore_gravity()
+	elif utility == 'oxygen_scrubber':
+		restore_o2()
 
 func _infront_oxygen_scrubber():
 	can_use_scrubber = true
@@ -356,11 +371,17 @@ func utility_cracked_fx():
 func lose_gravity():
 	player_instance.hasGravity = false
 	
+func restore_gravity():
+	player_instance.hasGravity = true
+
+func restore_o2():
+	player_instance.wobble(0)
 		
 func spawn_fire_on_utility(utility):
 	var fire_pos = get_node(utility).position
 	var fire = FireScene.instance()
 	add_child(fire)
+	fire_list.append(fire)
 	fire.position = fire_pos
 	fire.attach_to_utility(utility)
 

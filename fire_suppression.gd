@@ -8,6 +8,7 @@ func _ready():
 	pass
 	
 func attach_to_utility(utility):
+	print('attached to ',utility)
 	attached_utility = utility
 
 func change_level(level):
