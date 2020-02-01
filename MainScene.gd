@@ -3,6 +3,7 @@ const UTILITY_LIST = {'oxygen_scrubber':{'level':null, 'health':null},
 					 'engine':{'level':null, 'health':null}, 
 					'lights':{'level':null, 'health':null}, 
 					'hull':{'level':null, 'health':null}, 
+					'hull2':{'level':null, 'health':null}, 
 					'gravity_generator':{'level':null, 'health':null}}
 const DEAD_IN_THE_WATER = 30
 const STILL_GOOD = 50
@@ -11,7 +12,7 @@ const MINIMUM_HULL_BREACH_SECONDS = 2
 const LASER_DMG = 20
 const DEBRIS_DMG = 5
 const DEBRIS_CHANCE = 50
-const CRACKED_O2_TICKER = 25
+const CRACKED_O2_TICKER = 5
 var can_use_scrubber = false
 var can_use_engine = false
 var can_use_gravity_generator = false
@@ -20,6 +21,7 @@ var can_use_hull = false
 var fire_list = []
 var o2_instance = null
 var hull_instance = null
+var hull2_instance = null
 var engine_instance = null
 var lights_instance = null
 var grav_instance = null
@@ -37,6 +39,7 @@ func _ready():
 	grav_instance = get_node("gravity_generator")
 	player_instance = get_node("character")
 	hull_instance = get_node("hull")
+	hull2_instance = get_node("hull2")
 	$DirectorTimer.start()
 	
 
@@ -96,7 +99,7 @@ func find_most_likely_to_crack():
 	var most_likely_to_crack = null
 	var most_distant = 0
 	for utility in UTILITY_LIST:
-		if utility == 'hull': continue # hull cracks on different logic
+		if utility in ['hull', 'hull2']: continue # hull cracks on different logic
 		if UTILITY_LIST[utility]['level'] == 1:
 			var distance = distance_from_player(utility)
 			if distance > most_distant:
@@ -120,7 +123,10 @@ func damage_to_hull():
 	if seconds_since_hull_breach< MINIMUM_HULL_BREACH_SECONDS:
 		seconds_since_hull_breach+=1
 		return false
-	var hull_hp = UTILITY_LIST['hull']['health']
+	var pick_hull = randi()%10<5
+	var which_hull = 'hull' if pick_hull else 'hull2'
+	var which_inst = hull_instance if pick_hull else hull2_instance
+	var hull_hp = UTILITY_LIST[which_hull]['health']
 	var laser_chance = DEAD_IN_THE_WATER if UTILITY_LIST['engine']['level']==2 else STILL_GOOD
 	var dice = randi()%100
 	var dmg = 0
@@ -133,22 +139,21 @@ func damage_to_hull():
 	if dmg:
 		hull_hp -= dmg
 		if hull_hp<=0:
-			if UTILITY_LIST['hull']['level'] == 3:
-				print("DEAD to HULL BREACH")
+			if UTILITY_LIST[which_hull]['level'] == 3:
+				print("DEAD to "+which_hull+" BREACH")
 			else: 
-				print("HULL BREACH level "+ str(UTILITY_LIST['hull']['level']))
-				UTILITY_LIST['hull']['level'] += 1 
-				hull_instance.change_level(UTILITY_LIST['hull']['level'])
-				UTILITY_LIST['hull']['health'] = 100
+				print(which_hull + " BREACH level "+ str(UTILITY_LIST[which_hull]['level']))
+				UTILITY_LIST[which_hull]['level'] += 1 
+				which_inst.change_level(UTILITY_LIST[which_hull]['level'])
+				UTILITY_LIST[which_hull]['health'] = 100
 		else:
-			UTILITY_LIST['hull']['health'] = hull_hp
+			UTILITY_LIST[which_hull]['health'] = hull_hp
 		seconds_since_hull_breach = 0 
 		return true
 	seconds_since_hull_breach += 1
 	return false	
 	
 func o2_falling():
-	print(UTILITY_LIST['oxygen_scrubber']['health'])
 	if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
 		UTILITY_LIST['oxygen_scrubber']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['oxygen_scrubber']['health'] <= 0:

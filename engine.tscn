@@ -7,11 +7,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "level_3",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "level_2",
@@ -20,6 +15,11 @@ animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "level_1",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "level_3",
 "speed": 20.0
 } ]
 
@@ -36,7 +36,7 @@ __meta__ = {
 
 [node name="Anim" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "level_3"
+animation = "level_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 1, 1.01644 )
