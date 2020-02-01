@@ -11,8 +11,7 @@ func wobble(maxRotation):
 	shake_amount = 0
 	wobbleOffset.y = 0
 	if maxWobble == 0:
-		shake(2)
-		duration = 1
+		shake(2, 1)
 
 func shake(amount, shakeDuration = 0):
 	maxWobble = 0
