@@ -95,15 +95,20 @@ func find_most_likely_to_crack():
 				most_distant = distance
 				most_likely_to_crack = utility
 	return most_likely_to_crack
-	
-func _on_DirectorTimer_timeout():
+
+func handle_cracking():
 	var most_likely_to_crack = find_most_likely_to_crack()
 	if most_likely_to_crack and will_crack():
 		print('cracked '+most_likely_to_crack)
 		UTILITY_LIST[most_likely_to_crack]['level'] = 2
 		seconds_since_last_break = 0
+		return true
 	else: 
 		seconds_since_last_break += 1
+		return false
+	
+func _on_DirectorTimer_timeout():
+	var is_system_cracked = handle_cracking()
 		
 		
 
