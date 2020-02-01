@@ -4,6 +4,7 @@ export(float) var GRAVITY = 800.0
 export(float) var JUMP_FORCE = 600.0
 export(float) var LAND_SIDE_SPEED = 200.0
 export(float) var AIR_SIDE_ACCELERATION = 800.0
+export(float) var shake_amount = 2;
 
 var velocity = Vector2()
 var landed = false
@@ -53,9 +54,4 @@ func _physics_process(delta):
 		else:
 			anim = "Fall"
 	$sprite.play(anim)
-		
 
-	
-
-func _ready():
-	pass # Replace with function body.
