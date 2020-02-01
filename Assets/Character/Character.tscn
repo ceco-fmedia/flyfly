@@ -61,7 +61,6 @@ height = 2.58337
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_mask = 6
-collision/safe_margin = 0.2
 script = ExtResource( 17 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
