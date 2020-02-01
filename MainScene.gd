@@ -178,7 +178,6 @@ func o2_falling():
 	
 func engine_damage():
 	if UTILITY_LIST['engine']['level'] == 2:
-		var wobble = int((100 - UTILITY_LIST['engine']['health'])/3)
 		UTILITY_LIST['engine']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['engine']['health'] <= 0:
 			UTILITY_LIST['engine']['level'] = 3
@@ -189,7 +188,6 @@ func engine_damage():
 	
 func gravity_malfunction():
 	if UTILITY_LIST['gravity_generator']['level'] == 2:
-		var wobble = int((100 - UTILITY_LIST['gravity_generator']['health'])/3)
 		UTILITY_LIST['gravity_generator']['health'] -= CRACKED_GRAV_TICKER
 		if UTILITY_LIST['gravity_generator']['health'] <= 0:
 			UTILITY_LIST['gravity_generator']['level'] = 3
@@ -213,11 +211,11 @@ func lose_gravity():
 	
 		
 func _on_DirectorTimer_timeout():
-	var is_system_cracked = handle_cracking()
-	var is_hull_hit = damage_to_hull()
-	var cracked_o2 = o2_falling()
-	var cracked_engine = engine_damage()
-	var cracked_grav = gravity_malfunction()
+	var _is_system_cracked = handle_cracking()
+	var _is_hull_hit = damage_to_hull()
+	var _cracked_o2 = o2_falling()
+	var _cracked_engine = engine_damage()
+	var _cracked_grav = gravity_malfunction()
 	
 		
 
