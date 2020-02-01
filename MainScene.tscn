@@ -23,13 +23,13 @@ position = Vector2( 85.9183, 190.452 )
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
 position = Vector2( 476.847, 133.174 )
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
+[node name="character" parent="." instance=ExtResource( 6 )]
 position = Vector2( 100.474, 494.105 )
 
-[node name="StaticBody2D" parent="." instance=ExtResource( 7 )]
+[node name="platform1" parent="." instance=ExtResource( 7 )]
 position = Vector2( 98.4737, 565.105 )
 
-[node name="StaticBody2D5" parent="." instance=ExtResource( 7 )]
+[node name="platform2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 308.474, 543.263 )
 rotation = -0.125664
 scale = Vector2( 5, 1 )
