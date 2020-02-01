@@ -18,7 +18,7 @@
 [ext_resource path="res://Assets/Character/CHR_RunSide/CHR_Run_Side_0006.png" type="Texture" id=16]
 [ext_resource path="res://Assets/Character/Character.gd" type="Script" id=17]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 11 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 14 ), ExtResource( 3 ), ExtResource( 12 ) ],
 "loop": true,
@@ -31,19 +31,20 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 39.9481
 height = 2.58337
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
+collision_mask = 6
 script = ExtResource( 17 )
 
 [node name="sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "RunSide"
-frame = 3
+frame = 7
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 10.7289 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )

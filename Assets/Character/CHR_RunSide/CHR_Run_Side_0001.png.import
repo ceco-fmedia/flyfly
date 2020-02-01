@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CHR_Run_Side_0001.png-185416a6203cfbe94b1f3fa5961b8277.stex"
+path="res://.import/CHR_Run_Side_0001.png-03fab251a525d538627cd9a6cfdfcf04.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Character/CHR_RunSide/CHR_Run_Side_0001.png"
-dest_files=[ "res://.import/CHR_Run_Side_0001.png-185416a6203cfbe94b1f3fa5961b8277.stex" ]
+source_file="res://assets/Character/CHR_RunSide/CHR_Run_Side_0001.png"
+dest_files=[ "res://.import/CHR_Run_Side_0001.png-03fab251a525d538627cd9a6cfdfcf04.stex" ]
 
 [params]
 
