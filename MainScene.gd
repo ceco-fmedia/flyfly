@@ -235,7 +235,7 @@ func damage_to_hull():
 		hit_by_debris_fx()
 		
 	if dmg:
-		hull_hp -= dmg
+#		hull_hp -= dmg # invincible hull
 		if hull_hp<=0:
 			if UTILITY_LIST[which_hull]['level'] == 3:
 				print("DEAD to "+which_hull+" BREACH")
