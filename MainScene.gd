@@ -1,5 +1,4 @@
 extends Node2D
-var FireScene = preload("fire.tscn")
 const UTILITY_LIST = {'oxygen_scrubber':{'level':null, 'health':null},
 					 'engine':{'level':null, 'health':null}, 
 					'lights':{'level':null, 'health':null}, 

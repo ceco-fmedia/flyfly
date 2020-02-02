@@ -4,5 +4,4 @@ func _ready():
 	$AnimatedSprite.play("OFF")
 
 func _on_AnimatedSprite_animation_finished():
-	if $AnimatedSprite.animation == 'ON':
-		$AnimatedSprite.play("OFF")
+	$AnimatedSprite.play("OFF")
