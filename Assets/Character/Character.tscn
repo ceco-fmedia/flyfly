@@ -59,25 +59,10 @@ animations = [ {
 "name": "Jump",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 11 ), ExtResource( 22 ), ExtResource( 13 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "MoveSide",
-"speed": 24.0
-}, {
-"frames": [ ExtResource( 25 ) ],
-"loop": true,
-"name": "Fall",
-"speed": 1.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 29 ) ],
 "loop": true,
 "name": "GrabSlideFast",
 "speed": 24.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 21 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 12.0
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
@@ -98,6 +83,21 @@ animations = [ {
 "loop": true,
 "name": "BoxTest",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 21 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 11 ), ExtResource( 22 ), ExtResource( 13 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "MoveSide",
+"speed": 24.0
+}, {
+"frames": [ ExtResource( 25 ) ],
+"loop": true,
+"name": "Fall",
+"speed": 1.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]

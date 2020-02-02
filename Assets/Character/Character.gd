@@ -14,7 +14,7 @@ export(float) var ZEROG_MAX_VELOCITY = 30
 # export(float) var ZEROG_CRAWL_VELOCITY = 60
 export(float) var ZEROG_ACCELERATION = 30
 export(float) var ZEROG_JUMP_VELOCITY = 250
-
+signal action_pressed
 var velocity = Vector2()
 var landed = false
 var grabbed = 0
@@ -29,6 +29,10 @@ func shake(amount, duration = 0):
 	$camera.shake(amount, duration)
 
 func _physics_process(delta):
+	var actionPressed = Input.is_action_just_pressed("ui_focus_next")
+	if actionPressed:
+		emit_signal("action_pressed")
+		#TODO CEC refactor this however makes sense
 	var leftPressed = Input.is_action_pressed("ui_left")
 	var rightPressed = Input.is_action_pressed("ui_right")
 	var upPressed = Input.is_action_pressed("ui_up")
