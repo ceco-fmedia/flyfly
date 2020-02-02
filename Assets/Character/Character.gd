@@ -8,12 +8,13 @@ export(float) var GRAVITY = 800.0
 export(float) var GRAB_VELOCITY = 800
 export(float) var GRAB_SLIDE_VELOCITY = 6000
 export(float) var JUMP_FORCE = 600.0
-export(float) var LAND_SIDE_SPEED = 200.0
-export(float) var AIR_SIDE_ACCELERATION = 400.0
+export(float) var LAND_SIDE_SPEED = 600.0
+export(float) var AIR_SIDE_ACCELERATION = 1000.0
 export(float) var ZEROG_MAX_VELOCITY = 30
 export(float) var ZEROG_ACCELERATION = 30
 export(float) var ZEROG_JUMP_VELOCITY = 250
 var ZEROG_JUMP_DIAGONAL_VELOCITY = 0.0
+var JUMP_DIAGONAL_VELOCITY = 0.0
 signal action_pressed
 var velocity = Vector2()
 var upVector = Vector2(0, -1)
@@ -71,21 +72,30 @@ func _physics_process(delta):
 				else:
 					velocity.x = 0;
 		elif grabbed and jumpPressed:
-			velocity.y = -JUMP_FORCE / 2
-			velocity.x = JUMP_FORCE * grabbed / 2
+			velocity.y = -JUMP_DIAGONAL_VELOCITY
+			velocity.x = JUMP_DIAGONAL_VELOCITY * grabbed / 2
 			grabbed = 0
 		elif grabbed and not (leftPressed or rightPressed):
 			velocity.x -= grabbed
 		else:
+			var acceleration = AIR_SIDE_ACCELERATION * delta
 			if leftPressed:
-				if velocity.x - AIR_SIDE_ACCELERATION > -LAND_SIDE_SPEED:
-					velocity.x -= AIR_SIDE_ACCELERATION * delta
+				if velocity.x - acceleration > -LAND_SIDE_SPEED:
+					velocity.x -= acceleration
 				else:
 					velocity.x = -LAND_SIDE_SPEED
 			elif rightPressed:
-				if velocity.x + AIR_SIDE_ACCELERATION < LAND_SIDE_SPEED:
-					velocity.x += AIR_SIDE_ACCELERATION * delta
+				if velocity.x + acceleration < LAND_SIDE_SPEED:
+					velocity.x += acceleration
 				else:
+					velocity.x = LAND_SIDE_SPEED
+			if velocity.x < -LAND_SIDE_SPEED:
+				velocity.x += acceleration
+				if velocity.x > -LAND_SIDE_SPEED:
+					velocity.x = -LAND_SIDE_SPEED
+			if velocity.x > LAND_SIDE_SPEED:
+				velocity.x -= acceleration
+				if velocity.x < LAND_SIDE_SPEED:
 					velocity.x = LAND_SIDE_SPEED
 		velocity = move_and_slide(velocity, upVector, true)
 		landed = is_on_floor() or hitting
@@ -263,9 +273,11 @@ func setGravity(isOn):
 		$sprite.rotation = 0
 	else:
 		$sprite.set_flip_h(false)
+	hitting = false
 	
 func _ready() :
 	ZEROG_JUMP_DIAGONAL_VELOCITY = sqrt(ZEROG_JUMP_VELOCITY * ZEROG_JUMP_VELOCITY / 2)
+	JUMP_DIAGONAL_VELOCITY = sqrt(JUMP_FORCE * JUMP_FORCE / 2)
 
 
 func _on_sprite_animation_finished():
