@@ -7,8 +7,8 @@ var status = false
 func _ready():
 	$Anim.play("OFF")
 	
-func start_alarm():
+func start():
 	$Anim.play("ON")
 	
-func stop_alarm():
+func stop():
 	$Anim.play("OFF")
