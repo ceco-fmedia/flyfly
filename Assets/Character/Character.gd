@@ -22,6 +22,7 @@ var hitAnimations = ["Hit0G", "Hit1", "Hit2", "Hit3"]
 var landed = false
 var grabbed = 0
 var hasGravity = true
+var grabLeftTime = 0
 var hitting = false
 
 func wobble(maxRotation):
@@ -139,11 +140,6 @@ func _physics_process(delta):
 				else:
 					anim = "Fall"
 	else:
-		if grabbed:
-			grabFixVelocity()
-			velocity = move_and_slide(velocity, upVector)
-			velocity.x = 0
-			velocity.y = 0
 		var isJump = false
 		if hitting or actionPressed:
 			hitting = true
@@ -152,22 +148,26 @@ func _physics_process(delta):
 				if grabbed == RIGHT:
 					isJump = true
 					grabbed = 0
+					grabLeftTime = 0
 				velocity.x = -1
 			elif rightPressed:
 				if grabbed == LEFT:
 					isJump = true
 					grabbed = 0
+					grabLeftTime = 0
 				velocity.x = 1
 			
 			if upPressed:
 				if grabbed == DOWN:
 					isJump = true
 					grabbed = 0
+					grabLeftTime = 0
 				velocity.y = -1
 			elif downPressed:
 				if grabbed == UP:
 					isJump = true
 					grabbed = 0
+					grabLeftTime = 0
 				velocity.y = 1
 			if isJump:
 				if velocity.x and velocity.y:
@@ -175,7 +175,15 @@ func _physics_process(delta):
 				else:
 					velocity *= ZEROG_JUMP_VELOCITY;
 			else:
-				grabFixVelocity()
+				velocity *= 0
+				if grabbed == LEFT:
+					velocity.x = -100
+				elif grabbed == RIGHT:
+					velocity.x = 100
+				elif grabbed == UP:
+					velocity.y = -100
+				elif grabbed == DOWN:
+					velocity.y = 100
 		else:
 			if upPressed:
 				if velocity.y > -ZEROG_MAX_VELOCITY:
@@ -210,25 +218,29 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, upVector)
 
 		var collisions = get_slide_count()
-		if not grabbed:
-			if collisions:
-				var normal = get_slide_collision(collisions - 1).normal
-				if abs(normal.x) > abs(normal.y):
-					if normal.x > 0:
-						grabbed = LEFT
-						rotateChildren(90)
-					else:
-						grabbed = RIGHT
-						rotateChildren(270)
+		if collisions:
+			var normal = get_slide_collision(collisions - 1).normal
+			if abs(normal.x) > abs(normal.y):
+				if normal.x > 0:
+					grabbed = LEFT
+					rotateChildren(90)
 				else:
-					if normal.y > 0:
-						grabbed = UP
-						rotateChildren(180)
-					else:
-						grabbed = DOWN
-						rotateChildren(0)
+					grabbed = RIGHT
+					rotateChildren(270)
 			else:
-				grabbed = 0
+				if normal.y > 0:
+					grabbed = UP
+					rotateChildren(180)
+				else:
+					grabbed = DOWN
+					rotateChildren(0)
+			velocity.x = 0
+			velocity.y = 0
+			grabLeftTime = 0.2
+		elif grabLeftTime > delta:
+			grabLeftTime -= delta
+		else:
+			grabbed = 0
 		
 		if hitting:
 			anim = "Hit0G"
@@ -257,20 +269,8 @@ func _physics_process(delta):
 				rotateChildren(90)
 		else:
 			anim = "Idle0G"
-		
+	
 	$sprite.play(anim)
-
-func grabFixVelocity():
-	velocity.x = 0
-	velocity.y = 0
-	if grabbed == LEFT:
-		velocity.x = -150
-	elif grabbed == RIGHT:
-		velocity.x = 150
-	elif grabbed == UP:
-		velocity.y = -150
-	elif grabbed == DOWN:
-		velocity.y = 150
 
 func setGravity(isOn):
 	hasGravity = isOn

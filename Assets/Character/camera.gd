@@ -8,11 +8,12 @@ var shake_amount = 0
 var shakeDuration = 0;
 
 func wobble(maxRotation):
-	maxWobble = maxRotation
-	if maxWobble == 0:
-		rotation = 0
-		wobbleOffset.x = 0
-		shake(2, 1)
+	if maxWobble != maxRotation:
+		maxWobble = maxRotation
+		if maxWobble == 0:
+			rotation = 0
+			wobbleOffset.x = 0
+			shake(2, 1)
 
 func shake(amount, duration = 0):
 	shake_amount = amount
