@@ -18,39 +18,6 @@ script = ExtResource( 1 )
 position = Vector2( 279.377, 200.066 )
 texture = ExtResource( 10 )
 
-[node name="hull" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1044.79, -18.4694 )
-
-[node name="hull2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1107.7, 289.043 )
-
-[node name="oxygen_scrubber" parent="." instance=ExtResource( 2 )]
-position = Vector2( 646.819, 288.13 )
-
-[node name="engine" parent="." instance=ExtResource( 5 )]
-position = Vector2( -454.362, 118.734 )
-
-[node name="lights" parent="." instance=ExtResource( 4 )]
-position = Vector2( -384.26, -136.895 )
-
-[node name="gravity_generator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 163.965, 609.866 )
-
-[node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
-position = Vector2( -488.529, 393.17 )
-
-[node name="fire_suppression2" parent="." instance=ExtResource( 9 )]
-position = Vector2( -65.6077, 402.931 )
-
-[node name="fire_suppression3" parent="." instance=ExtResource( 9 )]
-position = Vector2( -348.796, 395.039 )
-
-[node name="fire_suppression4" parent="." instance=ExtResource( 9 )]
-position = Vector2( -211.856, 400.617 )
-
-[node name="character" parent="." instance=ExtResource( 6 )]
-position = Vector2( 149.051, 344.631 )
-
 [node name="platform1" parent="." instance=ExtResource( 7 )]
 position = Vector2( -133.851, 504.24 )
 scale = Vector2( 13.88, 1 )
@@ -129,4 +96,37 @@ scale = Vector2( 11.3236, 0.993081 )
 position = Vector2( -71.3144, -262.286 )
 rotation = 0.00348926
 scale = Vector2( 11.3236, 0.993081 )
+
+[node name="hull" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1044.79, -18.4694 )
+
+[node name="hull2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1107.7, 289.043 )
+
+[node name="oxygen_scrubber" parent="." instance=ExtResource( 2 )]
+position = Vector2( 646.819, 288.13 )
+
+[node name="engine" parent="." instance=ExtResource( 5 )]
+position = Vector2( -454.362, 118.734 )
+
+[node name="lights" parent="." instance=ExtResource( 4 )]
+position = Vector2( -384.26, -136.895 )
+
+[node name="gravity_generator" parent="." instance=ExtResource( 3 )]
+position = Vector2( 163.965, 609.866 )
+
+[node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
+position = Vector2( -488.529, 393.17 )
+
+[node name="fire_suppression2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -65.6077, 402.931 )
+
+[node name="fire_suppression3" parent="." instance=ExtResource( 9 )]
+position = Vector2( -348.796, 395.039 )
+
+[node name="fire_suppression4" parent="." instance=ExtResource( 9 )]
+position = Vector2( -211.856, 400.617 )
+
+[node name="character" parent="." instance=ExtResource( 6 )]
+position = Vector2( 149.051, 344.631 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
