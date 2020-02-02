@@ -12,9 +12,9 @@ const MINIMUM_HULL_BREACH_SECONDS = 2
 const LASER_DMG = 20
 const DEBRIS_DMG = 5
 const DEBRIS_CHANCE = 50
-const CRACKED_O2_TICKER = 5
-const CRACKED_LIGHT_TICKER = 5
-const CRACKED_GRAV_TICKER = 5
+const CRACKED_O2_TICKER = 6
+const CRACKED_LIGHT_TICKER = 4
+const CRACKED_GRAV_TICKER = 12
 const CRACKED_ENGINE_TICKER = 1
 const MAX_WOBBLE = 10
 const FIX_PER_ACTION = 25
@@ -184,7 +184,8 @@ func _initilize_utilities():
 		UTILITY_LIST[utility] = {'level':1, 'health':100}	
 
 func distance_from_player(utility):
-	return get_node(utility).get_global_position().distance_to(player_instance.get_global_position())
+	return randi()%100
+#	return get_node(utility).get_global_position().distance_to(player_instance.get_global_position())
 	
 func will_crack():
 	if seconds_since_last_break<=MINIMUM_REST_SECONDS:

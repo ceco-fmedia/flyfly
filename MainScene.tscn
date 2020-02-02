@@ -144,9 +144,6 @@ position = Vector2( -301.288, -135.429 )
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
 position = Vector2( 196.545, 615.867 )
 
-[node name="character" parent="." instance=ExtResource( 6 )]
-position = Vector2( 149.051, 344.631 )
-
 [node name="Sprinklers_E" parent="." instance=ExtResource( 21 )]
 position = Vector2( -374.151, 119.996 )
 scale = Vector2( 1, 1.04 )
@@ -195,5 +192,8 @@ position = Vector2( 950.333, 210.443 )
 position = Vector2( -91.8599, -60.1266 )
 
 [node name="Alarm_O2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 840.101, 257.208 )
+position = Vector2( 843.901, 269.558 )
+
+[node name="character" parent="." instance=ExtResource( 6 )]
+position = Vector2( 149.051, 344.631 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
