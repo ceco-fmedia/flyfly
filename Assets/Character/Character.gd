@@ -10,8 +10,8 @@ export(float) var GRAB_SLIDE_VELOCITY = 700
 export(float) var JUMP_FORCE = 950.0
 export(float) var LAND_SIDE_SPEED = 600.0
 export(float) var AIR_SIDE_ACCELERATION = 1000.0
-export(float) var ZEROG_MAX_VELOCITY = 30
-export(float) var ZEROG_ACCELERATION = 30
+export(float) var ZEROG_MAX_VELOCITY = 180
+export(float) var ZEROG_ACCELERATION = 180
 export(float) var ZEROG_JUMP_VELOCITY = 250
 var ZEROG_JUMP_DIAGONAL_VELOCITY = 0.0
 var JUMP_DIAGONAL_VELOCITY = 0.0
@@ -143,47 +143,47 @@ func _physics_process(delta):
 		var isJump = false
 		if hitting or actionPressed:
 			hitting = true
-		elif grabbed:
-			if leftPressed:
-				if grabbed == RIGHT:
-					isJump = true
-					grabbed = 0
-					grabLeftTime = 0
-				velocity.x = -1
-			elif rightPressed:
-				if grabbed == LEFT:
-					isJump = true
-					grabbed = 0
-					grabLeftTime = 0
-				velocity.x = 1
+		# elif grabbed:
+		# 	if leftPressed:
+		# 		if grabbed == RIGHT:
+		# 			isJump = true
+		# 			grabbed = 0
+		# 			grabLeftTime = 0
+		# 		velocity.x = -1
+		# 	elif rightPressed:
+		# 		if grabbed == LEFT:
+		# 			isJump = true
+		# 			grabbed = 0
+		# 			grabLeftTime = 0
+		# 		velocity.x = 1
 			
-			if upPressed:
-				if grabbed == DOWN:
-					isJump = true
-					grabbed = 0
-					grabLeftTime = 0
-				velocity.y = -1
-			elif downPressed:
-				if grabbed == UP:
-					isJump = true
-					grabbed = 0
-					grabLeftTime = 0
-				velocity.y = 1
-			if isJump:
-				if velocity.x and velocity.y:
-					velocity *= ZEROG_JUMP_DIAGONAL_VELOCITY
-				else:
-					velocity *= ZEROG_JUMP_VELOCITY;
-			else:
-				velocity *= 0
-				if grabbed == LEFT:
-					velocity.x = -100
-				elif grabbed == RIGHT:
-					velocity.x = 100
-				elif grabbed == UP:
-					velocity.y = -100
-				elif grabbed == DOWN:
-					velocity.y = 100
+		# 	if upPressed:
+		# 		if grabbed == DOWN:
+		# 			isJump = true
+		# 			grabbed = 0
+		# 			grabLeftTime = 0
+		# 		velocity.y = -1
+		# 	elif downPressed:
+		# 		if grabbed == UP:
+		# 			isJump = true
+		# 			grabbed = 0
+		# 			grabLeftTime = 0
+		# 		velocity.y = 1
+		# 	if isJump:
+		# 		if velocity.x and velocity.y:
+		# 			velocity *= ZEROG_JUMP_DIAGONAL_VELOCITY
+		# 		else:
+		# 			velocity *= ZEROG_JUMP_VELOCITY;
+		# 	else:
+		# 		velocity *= 0
+		# 		if grabbed == LEFT:
+		# 			velocity.x = -100
+		# 		elif grabbed == RIGHT:
+		# 			velocity.x = 100
+		# 		elif grabbed == UP:
+		# 			velocity.y = -100
+		# 		elif grabbed == DOWN:
+		# 			velocity.y = 100
 		else:
 			if upPressed:
 				if velocity.y > -ZEROG_MAX_VELOCITY:
@@ -217,35 +217,36 @@ func _physics_process(delta):
 
 		velocity = move_and_slide(velocity, upVector)
 
-		var collisions = get_slide_count()
-		if collisions:
-			var normal = get_slide_collision(collisions - 1).normal
-			if abs(normal.x) > abs(normal.y):
-				if normal.x > 0:
-					grabbed = LEFT
-					rotateChildren(90)
-				else:
-					grabbed = RIGHT
-					rotateChildren(270)
-			else:
-				if normal.y > 0:
-					grabbed = UP
-					rotateChildren(180)
-				else:
-					grabbed = DOWN
-					rotateChildren(0)
-			velocity.x = 0
-			velocity.y = 0
-			grabLeftTime = 0.2
-		elif grabLeftTime > delta:
-			grabLeftTime -= delta
-		else:
-			grabbed = 0
+		# var collisions = get_slide_count()
+		# if collisions:
+		# 	var normal = get_slide_collision(collisions - 1).normal
+		# 	if abs(normal.x) > abs(normal.y):
+		# 		if normal.x > 0:
+		# 			grabbed = LEFT
+		# 			rotateChildren(90)
+		# 		else:
+		# 			grabbed = RIGHT
+		# 			rotateChildren(270)
+		# 	else:
+		# 		if normal.y > 0:
+		# 			grabbed = UP
+		# 			rotateChildren(180)
+		# 		else:
+		# 			grabbed = DOWN
+		# 			rotateChildren(0)
+		# 	velocity.x = 0
+		# 	velocity.y = 0
+		# 	grabLeftTime = 0.2
+		# elif grabLeftTime > delta:
+		# 	grabLeftTime -= delta
+		# else:
+		# 	grabbed = 0
+		grabbed = 0
 		
 		if hitting:
 			anim = "Hit0G"
-		elif grabbed:
-			anim = "Grab0G"
+		# elif grabbed:
+		# 	anim = "Grab0G"
 		elif leftPressed || rightPressed || upPressed || downPressed:
 			anim = "Swim"
 
