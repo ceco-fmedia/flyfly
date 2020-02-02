@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://oxygen_scrubber.tscn" type="PackedScene" id=2]
@@ -10,6 +10,12 @@
 [ext_resource path="res://hull.tscn" type="PackedScene" id=8]
 [ext_resource path="res://fire_suppression.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Background/MainConcept.jpg" type="Texture" id=10]
+[ext_resource path="res://Alarm_E.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Alarm_H2.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Alarm_G.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Alarm_L.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Alarm_O2.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Alarm_H1.tscn" type="PackedScene" id=16]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -126,6 +132,24 @@ position = Vector2( -348.796, 395.039 )
 
 [node name="fire_suppression4" parent="." instance=ExtResource( 9 )]
 position = Vector2( -211.856, 400.617 )
+
+[node name="Alarm_E" parent="." instance=ExtResource( 11 )]
+position = Vector2( -43.7261, 208.342 )
+
+[node name="Alarm_G" parent="." instance=ExtResource( 13 )]
+position = Vector2( 322.345, 454.289 )
+
+[node name="Alarm_H1" parent="." instance=ExtResource( 16 )]
+position = Vector2( 815.049, -53.4458 )
+
+[node name="Alarm_H2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 950.333, 210.443 )
+
+[node name="Alarm_L" parent="." instance=ExtResource( 14 )]
+position = Vector2( -91.8599, -60.1266 )
+
+[node name="Alarm_O2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 840.101, 257.208 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
 position = Vector2( 149.051, 344.631 )

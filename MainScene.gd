@@ -19,6 +19,7 @@ const CRACKED_GRAV_TICKER = 5
 const CRACKED_ENGINE_TICKER = 5
 const MAX_WOBBLE = 10
 const FIX_PER_ACTION = 25
+const ALARM_TRESHOLD = 80
 var can_use_scrubber = false
 var can_use_engine = false
 var can_use_gravity_generator = false
@@ -181,6 +182,7 @@ func _process(_delta):
 			var actual_hp = 100*(3-UTILITY_LIST[utility]['level'])/3
 			actual_hp += UTILITY_LIST[utility]["health"]/3
 			node.get_node("HP").scale.x = actual_hp/100.0
+	run_alarms()
 			
 func restore_env(utility):
 	if utility == 'gravity_generrator':
@@ -393,6 +395,34 @@ func _on_DirectorTimer_timeout():
 	var _cracked_grav = gravity_malfunction()
 	var _cracked_lights = blow_circuit()
 	
+func should_run_alarm(utility):
+	return (UTILITY_LIST[utility]['level']==2 and UTILITY_LIST[utility]['health']< ALARM_TRESHOLD) or UTILITY_LIST[utility]['level']>2	
+func run_alarms():
+	if should_run_alarm('engine'):
+		get_node("Alarm_E").start_alarm()
+	else:
+		get_node("Alarm_E").stop_alarm()
+	if should_run_alarm('lights'):
+		get_node("Alarm_L").start_alarm()
+	else:
+		get_node("Alarm_L").stop_alarm()
+	if should_run_alarm('hull'):
+		get_node("Alarm_H1").start_alarm()
+	else:
+		get_node("Alarm_H1").stop_alarm()
+	if should_run_alarm('hull2'):
+		get_node("Alarm_H2").start_alarm()
+	else:
+		get_node("Alarm_H2").stop_alarm()
+	if should_run_alarm('oxygen_scrubber'):
+		get_node("Alarm_O2").start_alarm()
+	else:
+		get_node("Alarm_O2").stop_alarm()
+	if should_run_alarm('gravity_generator'):
+		get_node("Alarm_G").start_alarm()
+	else:
+		get_node("Alarm_G").stop_alarm()
+		
 		
 
 	
