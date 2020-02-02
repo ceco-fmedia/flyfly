@@ -21,7 +21,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 114.474, 112.11 )
+extents = Vector2( 161.702, 112.11 )
 
 [node name="StaticBody2D" type="StaticBody2D"]
 script = ExtResource( 6 )

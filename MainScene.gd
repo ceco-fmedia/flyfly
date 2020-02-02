@@ -58,6 +58,8 @@ func reset_usage():
 
 	
 func _ready():
+	$darkness.visible = false
+	get_node("character/darkness").visible = false
 	self._initilize_utilities()
 	o2_instance = get_node("oxygen_scrubber")
 	engine_instance = get_node("engine")
@@ -99,6 +101,8 @@ func action_fix():
 		return true
 	elif lights_instance.canUse(player_instance):
 		fix_utility("lights")
+		$darkness.visible = false
+		get_node("character/darkness").visible = false
 		return true
 	elif o2_instance.canUse(player_instance):
 		fix_utility("oxygen_scrubber")
@@ -170,7 +174,7 @@ func _process(_delta):
 	run_alarms()
 			
 func restore_env(utility):
-	if utility == 'gravity_generrator':
+	if utility == 'gravity_generator':
 		restore_gravity()
 	elif utility == 'oxygen_scrubber':
 		restore_o2()
@@ -287,6 +291,8 @@ func blow_circuit():
 			UTILITY_LIST['lights']['level'] = 3
 			lights_instance.change_level(UTILITY_LIST['lights']['level'])
 			spawn_fire_on_utility("lights")
+			$darkness.visible = true
+			get_node("character/darkness").visible = true
 			print("lights needs parts")
 			return true
 	return false
@@ -315,10 +321,11 @@ func utility_cracked_fx():
 	player_instance.shake(5,1)
 	
 func lose_gravity():
-	player_instance.hasGravity = false
+	player_instance.setGravity(false)
 	
 func restore_gravity():
-	player_instance.hasGravity = true
+	print("RESTORE GRAVITY")
+	player_instance.setGravity(true)
 
 func restore_o2():
 	player_instance.wobble(0)
