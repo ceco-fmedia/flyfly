@@ -19,22 +19,22 @@ position = Vector2( 279.377, 200.066 )
 texture = ExtResource( 10 )
 
 [node name="hull" parent="." instance=ExtResource( 8 )]
-position = Vector2( 720.248, -729.369 )
+position = Vector2( 1044.79, -18.4694 )
 
 [node name="hull2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 378.26, -752.579 )
+position = Vector2( 1107.7, 289.043 )
 
 [node name="oxygen_scrubber" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1363.9, -704.039 )
+position = Vector2( 646.819, 288.13 )
 
 [node name="engine" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1047.8, -706.528 )
+position = Vector2( -454.362, 118.734 )
 
 [node name="lights" parent="." instance=ExtResource( 4 )]
-position = Vector2( -306.988, -727.251 )
+position = Vector2( -384.26, -136.895 )
 
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 95.966, -734.662 )
+position = Vector2( 163.965, 609.866 )
 
 [node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
 position = Vector2( -488.529, 393.17 )
