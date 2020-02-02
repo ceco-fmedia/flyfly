@@ -137,7 +137,9 @@ func _physics_process(delta):
 					anim = "Fall"
 	else:
 		var isJump = false
-		if grabbed:
+		if hitting or actionPressed:
+			hitting = true
+		elif grabbed:
 			if leftPressed:
 				if grabbed == RIGHT:
 					isJump = true
@@ -170,39 +172,44 @@ func _physics_process(delta):
 					velocity *= ZEROG_JUMP_VELOCITY;
 			else:
 				velocity *= 0
+				if grabbed == LEFT:
+					velocity.x = -100
+				elif grabbed == RIGHT:
+					velocity.x = 100
+				elif grabbed == UP:
+					velocity.y = -100
+				elif grabbed == DOWN:
+					velocity.y = 100
 		else:
-			if hitting or actionPressed:
-				hitting = true
-			else:
-				if upPressed:
-					if velocity.y > -ZEROG_MAX_VELOCITY:
-						velocity.y -= ZEROG_ACCELERATION * delta
-						if velocity.y < -ZEROG_MAX_VELOCITY:
-							velocity.y = -ZEROG_MAX_VELOCITY
-				elif downPressed:
-					if velocity.y < ZEROG_MAX_VELOCITY:
-						velocity.y += ZEROG_ACCELERATION * delta
-						if velocity.y > ZEROG_MAX_VELOCITY:
-							velocity.y = ZEROG_MAX_VELOCITY
-				if leftPressed:
-					if velocity.x > -ZEROG_MAX_VELOCITY:
-						velocity.x -= ZEROG_ACCELERATION * delta
-						if velocity.x < -ZEROG_MAX_VELOCITY:
-							velocity.x = -ZEROG_MAX_VELOCITY
-				elif rightPressed:
-					if velocity.x < ZEROG_MAX_VELOCITY:
-						velocity.x += ZEROG_ACCELERATION * delta
-						if velocity.x > ZEROG_MAX_VELOCITY:
-							velocity.x = ZEROG_MAX_VELOCITY
-				
-				if velocity.x > ZEROG_MAX_VELOCITY and not rightPressed:
-					velocity.x -= ZEROG_ACCELERATION * delta
-				elif velocity.x < -ZEROG_MAX_VELOCITY and not leftPressed:
-					velocity.x += ZEROG_ACCELERATION * delta
-				if velocity.y > ZEROG_MAX_VELOCITY and not upPressed:
+			if upPressed:
+				if velocity.y > -ZEROG_MAX_VELOCITY:
 					velocity.y -= ZEROG_ACCELERATION * delta
-				elif velocity.y < -ZEROG_MAX_VELOCITY and not downPressed:
+					if velocity.y < -ZEROG_MAX_VELOCITY:
+						velocity.y = -ZEROG_MAX_VELOCITY
+			elif downPressed:
+				if velocity.y < ZEROG_MAX_VELOCITY:
 					velocity.y += ZEROG_ACCELERATION * delta
+					if velocity.y > ZEROG_MAX_VELOCITY:
+						velocity.y = ZEROG_MAX_VELOCITY
+			if leftPressed:
+				if velocity.x > -ZEROG_MAX_VELOCITY:
+					velocity.x -= ZEROG_ACCELERATION * delta
+					if velocity.x < -ZEROG_MAX_VELOCITY:
+						velocity.x = -ZEROG_MAX_VELOCITY
+			elif rightPressed:
+				if velocity.x < ZEROG_MAX_VELOCITY:
+					velocity.x += ZEROG_ACCELERATION * delta
+					if velocity.x > ZEROG_MAX_VELOCITY:
+						velocity.x = ZEROG_MAX_VELOCITY
+			
+			if velocity.x > ZEROG_MAX_VELOCITY and not rightPressed:
+				velocity.x -= ZEROG_ACCELERATION * delta
+			elif velocity.x < -ZEROG_MAX_VELOCITY and not leftPressed:
+				velocity.x += ZEROG_ACCELERATION * delta
+			if velocity.y > ZEROG_MAX_VELOCITY and not upPressed:
+				velocity.y -= ZEROG_ACCELERATION * delta
+			elif velocity.y < -ZEROG_MAX_VELOCITY and not downPressed:
+				velocity.y += ZEROG_ACCELERATION * delta
 
 		velocity = move_and_slide(velocity, upVector)
 
