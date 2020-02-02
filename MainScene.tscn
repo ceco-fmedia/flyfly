@@ -19,61 +19,114 @@ position = Vector2( 279.377, 200.066 )
 texture = ExtResource( 10 )
 
 [node name="hull" parent="." instance=ExtResource( 8 )]
-position = Vector2( 444.724, 412.602 )
+position = Vector2( 720.248, -729.369 )
 
 [node name="hull2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 440.657, 157.331 )
+position = Vector2( 378.26, -752.579 )
 
 [node name="oxygen_scrubber" parent="." instance=ExtResource( 2 )]
-position = Vector2( -87.4305, 409.268 )
+position = Vector2( 1363.9, -704.039 )
 
 [node name="engine" parent="." instance=ExtResource( 5 )]
-position = Vector2( 177.863, 411.686 )
+position = Vector2( 1047.8, -706.528 )
 
 [node name="lights" parent="." instance=ExtResource( 4 )]
-position = Vector2( -86.1105, 157.048 )
+position = Vector2( -306.988, -727.251 )
 
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 162.853, 151.546 )
+position = Vector2( 95.966, -734.662 )
 
 [node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
-position = Vector2( 105.221, 643.02 )
+position = Vector2( -488.529, 393.17 )
 
 [node name="fire_suppression2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 297.292, 648.031 )
+position = Vector2( -65.6077, 402.931 )
 
 [node name="fire_suppression3" parent="." instance=ExtResource( 9 )]
-position = Vector2( 484.353, 636.339 )
+position = Vector2( -348.796, 395.039 )
 
 [node name="fire_suppression4" parent="." instance=ExtResource( 9 )]
-position = Vector2( 669.743, 609.617 )
+position = Vector2( -211.856, 400.617 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
-position = Vector2( 116.83, 637.808 )
+position = Vector2( 149.051, 344.631 )
 
 [node name="platform1" parent="." instance=ExtResource( 7 )]
-position = Vector2( 217.575, 723.309 )
-scale = Vector2( 5, 1 )
+position = Vector2( -133.851, 504.24 )
+scale = Vector2( 13.88, 1 )
 
-[node name="platform2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 568.702, 701.467 )
-rotation = -0.125664
-scale = Vector2( 5, 1 )
+[node name="platform12" parent="." instance=ExtResource( 7 )]
+position = Vector2( -324.921, 254.705 )
+scale = Vector2( 9.92, 1 )
+
+[node name="platform13" parent="." instance=ExtResource( 7 )]
+position = Vector2( -396.932, -14.364 )
+scale = Vector2( 6.35762, -0.898664 )
+
+[node name="platform14" parent="." instance=ExtResource( 7 )]
+position = Vector2( 218.026, -19.9042 )
+scale = Vector2( 3.43762, -1.29866 )
+
+[node name="platform9" parent="." instance=ExtResource( 7 )]
+position = Vector2( 637.481, 124.696 )
+scale = Vector2( 2.68, 1 )
+
+[node name="platform11" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1033.24, 130.848 )
+scale = Vector2( 3.43981, 1.32 )
+
+[node name="platform10" parent="." instance=ExtResource( 7 )]
+position = Vector2( 891.748, 424.076 )
+scale = Vector2( 9.56877, 1 )
+
+[node name="platform6" parent="." instance=ExtResource( 7 )]
+position = Vector2( 310.991, 725.981 )
+scale = Vector2( 13.88, 1 )
 
 [node name="DirectorTimer" type="Timer" parent="."]
 
-[node name="platform3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 732.882, 340.661 )
+[node name="platform4" parent="." instance=ExtResource( 7 )]
+position = Vector2( -585.89, 251.865 )
 rotation = 1.5708
 scale = Vector2( 10, 1 )
 
-[node name="platform4" parent="." instance=ExtResource( 7 )]
-position = Vector2( 29.8411, 381.373 )
+[node name="platform15" parent="." instance=ExtResource( 7 )]
+position = Vector2( 327.562, 127.616 )
 rotation = 1.5708
-scale = Vector2( 10, 1 )
+scale = Vector2( -4.48766, -1.25512 )
+
+[node name="platform18" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1109.63, -27.8414 )
+rotation = 1.5708
+scale = Vector2( -4.48766, -1.25512 )
+
+[node name="platform19" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1193.34, 271.115 )
+rotation = 1.30249
+scale = Vector2( -4.48766, -1.25512 )
+
+[node name="platform17" parent="." instance=ExtResource( 7 )]
+position = Vector2( -456.9, -161.774 )
+rotation = 1.5708
+scale = Vector2( -4.48766, -1.25512 )
+
+[node name="platform7" parent="." instance=ExtResource( 7 )]
+position = Vector2( 28.9985, 612.364 )
+rotation = 1.5708
+scale = Vector2( 3.36, 1 )
+
+[node name="platform8" parent="." instance=ExtResource( 7 )]
+position = Vector2( 536.418, 416.47 )
+rotation = 1.5708
+scale = Vector2( 8.56124, 1.52184 )
 
 [node name="platform5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 381.201, 17.5151 )
-rotation = -0.0523599
-scale = Vector2( 10.3, 1 )
+position = Vector2( 708.999, -223.141 )
+rotation = 0.089025
+scale = Vector2( 11.3236, 0.993081 )
+
+[node name="platform16" parent="." instance=ExtResource( 7 )]
+position = Vector2( -71.3144, -262.286 )
+rotation = 0.00348926
+scale = Vector2( 11.3236, 0.993081 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
