@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://oxygen_scrubber.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Alarm_L.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Alarm_O2.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Alarm_H1.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Fire_E.tscn" type="PackedScene" id=17]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -122,19 +123,19 @@ position = Vector2( -301.288, -135.429 )
 position = Vector2( 196.545, 615.867 )
 
 [node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
-position = Vector2( -492.312, 393.592 )
+position = Vector2( -488.529, 393.17 )
 
 [node name="fire_suppression2" parent="." instance=ExtResource( 9 )]
-position = Vector2( -67.769, 393.592 )
+position = Vector2( -65.6077, 402.931 )
 
 [node name="fire_suppression3" parent="." instance=ExtResource( 9 )]
-position = Vector2( -350.417, 393.592 )
+position = Vector2( -348.796, 395.039 )
 
 [node name="fire_suppression4" parent="." instance=ExtResource( 9 )]
-position = Vector2( -207.533, 393.592 )
+position = Vector2( -211.856, 400.617 )
 
 [node name="Alarm_E" parent="." instance=ExtResource( 11 )]
-position = Vector2( -43.7261, 198.342 )
+position = Vector2( -43.7261, 208.342 )
 
 [node name="Alarm_G" parent="." instance=ExtResource( 13 )]
 position = Vector2( 322.345, 454.289 )
@@ -153,4 +154,7 @@ position = Vector2( 840.101, 257.208 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
 position = Vector2( 149.051, 344.631 )
+
+[node name="Fire_E" parent="." instance=ExtResource( 17 )]
+position = Vector2( -228.333, 55.9551 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
