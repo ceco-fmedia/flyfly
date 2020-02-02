@@ -132,14 +132,17 @@ func action_suppression():
 		print(utility)
 		utility = fire_sup2.attached_utility
 		fire_sup2.use()
+		get_node("Sprinklers_E/AnimatedSprite").play("ON")
 	elif fire_sup3.canUse(player_instance):
 		print(utility)
 		utility = fire_sup3.attached_utility
 		fire_sup3.use()
+		get_node("Sprinklers_L/AnimatedSprite").play("ON")
 	elif fire_sup4.canUse(player_instance):
 		print(utility)
 		utility = fire_sup4.attached_utility
 		fire_sup4.use()
+		get_node("Sprinklers_G/AnimatedSprite").play("ON")
 	if utility:
 		for fire in fire_list:
 			if fire.attached_utility == utility:

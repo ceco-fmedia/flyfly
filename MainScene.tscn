@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://oxygen_scrubber.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Alarm_L.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Alarm_O2.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Alarm_H1.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Sprinklers.tscn" type="PackedScene" id=17]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -153,4 +154,20 @@ position = Vector2( 840.101, 257.208 )
 
 [node name="character" parent="." instance=ExtResource( 6 )]
 position = Vector2( 149.051, 344.631 )
+
+[node name="Sprinklers_E" parent="." instance=ExtResource( 17 )]
+position = Vector2( -374.151, 119.996 )
+scale = Vector2( 1, 1.04 )
+
+[node name="Sprinklers_G" parent="." instance=ExtResource( 17 )]
+position = Vector2( 197.484, 614.573 )
+scale = Vector2( 0.759999, 0.84 )
+
+[node name="Sprinklers_L" parent="." instance=ExtResource( 17 )]
+position = Vector2( -319.728, -140.2 )
+scale = Vector2( 0.64, 0.960001 )
+
+[node name="Sprinklers_O2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 654.734, 276.134 )
+scale = Vector2( 0.520002, 1.16 )
 [connection signal="timeout" from="DirectorTimer" to="." method="_on_DirectorTimer_timeout"]
