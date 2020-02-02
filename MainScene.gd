@@ -45,7 +45,19 @@ var can_use_fire_sup2 = false
 var can_use_fire_sup3 = false
 var can_use_fire_sup4 = false
 
+func reset_usage():
+	can_use_scrubber = false
+	can_use_engine = false
+	can_use_gravity_generator = false
+	can_use_lights = false
+	can_use_hull = false
+	can_use_hull2 = false
+	can_use_fire_sup1 = false
+	can_use_fire_sup2 = false
+	can_use_fire_sup3 = false
+	can_use_fire_sup4 = false
 
+	
 func _ready():
 	self._subscribe_to_usage_signals()
 	self._initilize_utilities()
@@ -144,24 +156,28 @@ func subscribe_to_suppression():
 		get_node(unit).connect("cannot_use", self, "_out_of_fire_suppression"+x)
 		
 func _infront_fire_suppression1():
+	reset_usage()
 	can_use_fire_sup1 = true
 	
 func _out_of_fire_suppression1():
 	can_use_fire_sup1 = false
 	
 func _infront_fire_suppression2():
+	reset_usage()
 	can_use_fire_sup2 = true
 	
 func _out_of_fire_suppression2():
 	can_use_fire_sup2 = false
 	
 func _infront_fire_suppression3():
+	reset_usage()
 	can_use_fire_sup3 = true
 	
 func _out_of_fire_suppression3():
 	can_use_fire_sup3 = false
 	
 func _infront_fire_suppression4():
+	reset_usage()
 	can_use_fire_sup4 = true
 	
 func _out_of_fire_suppression4():
@@ -192,36 +208,42 @@ func restore_env(utility):
 		restore_o2()
 
 func _infront_oxygen_scrubber():
+	reset_usage()
 	can_use_scrubber = true
 	
 func _out_of_oxygen_scrubber():
 	can_use_scrubber = false
 
 func _infront_gravity_generator():
+	reset_usage()
 	can_use_gravity_generator = true
 	
 func _out_of_gravity_generator():
 	can_use_gravity_generator = false
 	
 func _infront_engine():
+	reset_usage()
 	can_use_engine = true
 	
 func _out_of_engine():
 	can_use_engine = false
 	
 func _infront_lights():
+	reset_usage()
 	can_use_lights = true
 	
 func _out_of_lights():
 	can_use_lights = false
 	
 func _infront_hull():
+	reset_usage()
 	can_use_hull = true
 	
 func _out_of_hull():
 	can_use_hull = false
 	
 func _infront_hull2():
+	reset_usage()
 	can_use_hull2 = true
 	
 func _out_of_hull2():

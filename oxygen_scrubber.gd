@@ -16,3 +16,14 @@ func _on_Area2D_body_exited(_body):
 	
 func _on_Area2D_body_entered(_body):
 	emit_signal("can_use")
+
+
+func _on_Timer_timeout():
+#	if current_level == 2:
+#
+#		if not $Anim.is_playing():
+#			print("stop anim")
+#			$Anim.play()
+#		else:
+#			$Anim.stop()
+	pass
