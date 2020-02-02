@@ -4,10 +4,10 @@ const RIGHT = 2;
 const UP = 3;
 const DOWN = 4;
 
-export(float) var GRAVITY = 800.0
-export(float) var GRAB_VELOCITY = 800
-export(float) var GRAB_SLIDE_VELOCITY = 6000
-export(float) var JUMP_FORCE = 600.0
+export(float) var GRAVITY = 1500.0
+export(float) var GRAB_VELOCITY = 100
+export(float) var GRAB_SLIDE_VELOCITY = 700
+export(float) var JUMP_FORCE = 900.0
 export(float) var LAND_SIDE_SPEED = 600.0
 export(float) var AIR_SIDE_ACCELERATION = 1000.0
 export(float) var ZEROG_MAX_VELOCITY = 30
@@ -48,9 +48,9 @@ func _physics_process(delta):
 	if hasGravity:
 		if grabbed:
 			if downPressed:
-				velocity.y = GRAB_SLIDE_VELOCITY * delta
+				velocity.y = GRAB_SLIDE_VELOCITY
 			else:
-				velocity.y = GRAB_VELOCITY * delta
+				velocity.y = GRAB_VELOCITY
 		else:
 			velocity.y += GRAVITY * delta
 		if landed:
