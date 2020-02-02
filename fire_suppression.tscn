@@ -1,19 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fire_suppression.gd" type="Script" id=1]
-[ext_resource path="res://assets/Platform/Platform.png" type="Texture" id=5]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0004.png" type="Texture" id=2]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0001.png" type="Texture" id=3]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0003.png" type="Texture" id=4]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0002.png" type="Texture" id=6]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0009.png" type="Texture" id=7]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0014.png" type="Texture" id=8]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0005.png" type="Texture" id=9]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0015.png" type="Texture" id=10]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0007.png" type="Texture" id=11]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0013.png" type="Texture" id=12]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0008.png" type="Texture" id=13]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0011.png" type="Texture" id=14]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0010.png" type="Texture" id=15]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0006.png" type="Texture" id=16]
+[ext_resource path="res://assets/Background/WaterTank_8fps/WaterTank0012.png" type="Texture" id=17]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "level_2",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 12 ), ExtResource( 8 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "level_1",
-"speed": 20.0
+"speed": 8.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -30,6 +39,7 @@ __meta__ = {
 [node name="Anim" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "level_1"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 1, 1.01644 )

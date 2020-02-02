@@ -124,17 +124,21 @@ func fix_utility(utility):
 func action_suppression():
 	var utility = null
 	if fire_sup1.canUse(player_instance):
-		utility = get_node("fire_suppression1").attached_utility
+		utility = fire_sup1.attached_utility
+		fire_sup1.use()
 		print(utility)
 	elif fire_sup2.canUse(player_instance):
 		print(utility)
-		utility = get_node("fire_suppression2").attached_utility
+		utility = fire_sup2.attached_utility
+		fire_sup2.use()
 	elif fire_sup3.canUse(player_instance):
 		print(utility)
-		utility = get_node("fire_suppression3").attached_utility
+		utility = fire_sup3.attached_utility
+		fire_sup3.use()
 	elif fire_sup4.canUse(player_instance):
 		print(utility)
-		utility = get_node("fire_suppression4").attached_utility
+		utility = fire_sup4.attached_utility
+		fire_sup4.use()
 	if utility:
 		for fire in fire_list:
 			if fire.attached_utility == utility:
@@ -254,7 +258,7 @@ func o2_falling():
 			if UTILITY_LIST['oxygen_scrubber']['level'] == 2:
 				UTILITY_LIST['oxygen_scrubber']['level'] = 3
 				UTILITY_LIST['oxygen_scrubber']['health'] = 100
-				get_node("oxygen_scrubber").change_level(UTILITY_LIST['oxygen_scrubber']['level'])
+				o2_instance.change_level(UTILITY_LIST['oxygen_scrubber']['level'])
 				spawn_fire_on_utility("oxygen_scrubber")
 				print("O2 needs parts")
 				return true
@@ -267,7 +271,7 @@ func engine_damage():
 		UTILITY_LIST['engine']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['engine']['health'] <= 0:
 			UTILITY_LIST['engine']['level'] = 3
-			get_node("engine").change_level(UTILITY_LIST['engine']['level'])
+			engine_instance.change_level(UTILITY_LIST['engine']['level'])
 			spawn_fire_on_utility("engine")
 			print("engine needs parts")
 			return true
@@ -278,7 +282,7 @@ func blow_circuit():
 		UTILITY_LIST['lights']['health'] -= CRACKED_O2_TICKER
 		if UTILITY_LIST['lights']['health'] <= 0:
 			UTILITY_LIST['lights']['level'] = 3
-			get_node("lights").change_level(UTILITY_LIST['lights']['level'])
+			lights_instance.change_level(UTILITY_LIST['lights']['level'])
 			spawn_fire_on_utility("lights")
 			print("lights needs parts")
 			return true
@@ -290,7 +294,7 @@ func gravity_malfunction():
 		if UTILITY_LIST['gravity_generator']['health'] <= 0:
 			UTILITY_LIST['gravity_generator']['level'] = 3
 			
-			get_node("gravity_generator").change_level(UTILITY_LIST['gravity_generator']['level'])
+			grav_instance.change_level(UTILITY_LIST['gravity_generator']['level'])
 			spawn_fire_on_utility("gravity_generator")
 			print("gravity_generator needs parts")
 			
