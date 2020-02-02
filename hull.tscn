@@ -47,5 +47,3 @@ shape = SubResource( 2 )
 position = Vector2( -91.9478, -93.4551 )
 texture = ExtResource( 5 )
 centered = false
-[connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]
