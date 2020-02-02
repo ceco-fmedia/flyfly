@@ -148,7 +148,7 @@ func action_suppression():
 			if fire.attached_utility == utility:
 				var pos = fire_list.find_last(fire)
 				fire_list.remove(pos)
-				fire.queue_free()
+				fire.stop()
 				print(fire_list)
 	return false
 
@@ -325,12 +325,10 @@ func restore_o2():
 	player_instance.wobble(0)
 		
 func spawn_fire_on_utility(utility):
-	var fire_pos = get_node(utility).position
-	var fire = FireScene.instance()
-	add_child(fire)
-	fire_list.append(fire)
-	fire.position = fire_pos
-	fire.attach_to_utility(utility)
+	var instance = get_node(utility+"_fire")
+	fire_list.append(instance)
+	instance.attach_to_utility(utility)
+	instance.start()
 
 func _on_DirectorTimer_timeout():
 	var _is_system_cracked = handle_cracking()
