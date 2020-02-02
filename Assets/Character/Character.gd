@@ -11,9 +11,9 @@ export(float) var JUMP_FORCE = 600.0
 export(float) var LAND_SIDE_SPEED = 200.0
 export(float) var AIR_SIDE_ACCELERATION = 400.0
 export(float) var ZEROG_MAX_VELOCITY = 30
-export(float) var ZEROG_CRAWL_VELOCITY = 60
-export(float) var ZEROG_ACCELERATION = 2
-export(float) var ZEROG_JUMP_VELOCITY = 100
+# export(float) var ZEROG_CRAWL_VELOCITY = 60
+export(float) var ZEROG_ACCELERATION = 30
+export(float) var ZEROG_JUMP_VELOCITY = 250
 
 var velocity = Vector2()
 var landed = false
@@ -131,30 +131,40 @@ func _physics_process(delta):
 					grabLeftTime = 0
 				velocity.y = 1
 			if isJump:
-				velocity *= ZEROG_JUMP_VELOCITY
+				velocity = (velocity * ZEROG_JUMP_VELOCITY).clamped(ZEROG_JUMP_VELOCITY)
+				print(velocity)
 			else:
 				velocity *= 0
 		else:
 			if upPressed:
-				if velocity.y > -ZEROG_MAX_VELOCITY:
-					velocity.y -= ZEROG_ACCELERATION
-					if velocity.y < -ZEROG_MAX_VELOCITY:
-						velocity.y = -ZEROG_MAX_VELOCITY
+				velocity.y -= ZEROG_ACCELERATION * delta
+				if velocity.y < -ZEROG_MAX_VELOCITY:
+					velocity.y = -ZEROG_MAX_VELOCITY
 			elif downPressed:
 				if velocity.y < ZEROG_MAX_VELOCITY:
-					velocity.y += ZEROG_ACCELERATION
+					velocity.y += ZEROG_ACCELERATION * delta
 					if velocity.y > ZEROG_MAX_VELOCITY:
 						velocity.y = ZEROG_MAX_VELOCITY
 			if leftPressed:
 				if velocity.x > -ZEROG_MAX_VELOCITY:
-					velocity.x -= ZEROG_ACCELERATION
+					velocity.x -= ZEROG_ACCELERATION * delta
 					if velocity.x < -ZEROG_MAX_VELOCITY:
 						velocity.x = -ZEROG_MAX_VELOCITY
 			elif rightPressed:
 				if velocity.x < ZEROG_MAX_VELOCITY:
-					velocity.x += ZEROG_ACCELERATION
+					velocity.x += ZEROG_ACCELERATION * delta
 					if velocity.x > ZEROG_MAX_VELOCITY:
 						velocity.x = ZEROG_MAX_VELOCITY
+			
+			if velocity.x > ZEROG_MAX_VELOCITY and not leftPressed:
+				velocity.x -= ZEROG_ACCELERATION * delta
+			elif velocity.x < -ZEROG_MAX_VELOCITY and not rightPressed:
+				velocity.x += ZEROG_ACCELERATION * delta
+			if velocity.y > ZEROG_MAX_VELOCITY and not upPressed:
+				velocity.y -= ZEROG_ACCELERATION * delta
+			elif velocity.y < -ZEROG_MAX_VELOCITY and not downPressed:
+				velocity.y += ZEROG_ACCELERATION * delta
+
 		
 		velocity = move_and_slide(velocity, upVector)
 
