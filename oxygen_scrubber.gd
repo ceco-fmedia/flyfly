@@ -6,17 +6,18 @@ func _ready():
 	pass
 
 func change_level(level):
+	if level != 2 or level<current_level:
+		$Anim.play("level_"+str(level))
 	current_level = level
-	$Anim.play("level_"+str(level))
 
 func canUse(player):
 	return overlaps_body(player)
 func _on_Timer_timeout():
-#	if current_level == 2:
-#
-#		if not $Anim.is_playing():
-#			print("stop anim")
-#			$Anim.play()
-#		else:
-#			$Anim.stop()
-	pass
+	print("wwwwww", self.name)
+	if current_level == 2:
+		
+		$Timer.set_wait_time(randi()%10+1)
+		if $Anim.animation == 'level_1':
+			$Anim.play("level_2")
+		elif $Anim.animation == 'level_2':
+			$Anim.play("level_1")

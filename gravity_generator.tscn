@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://blending/Add.tres" type="Material" id=1]
 [ext_resource path="res://assets/temp/o2_level_3.jpg" type="Texture" id=2]
-[ext_resource path="res://assets/temp/o2_level_2.jpg" type="Texture" id=3]
 [ext_resource path="res://oxygen_scrubber.gd" type="Script" id=4]
 [ext_resource path="res://assets/Platform/Platform.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Lighting/G_Light01.png" type="Texture" id=6]
@@ -11,7 +10,12 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "level_1",
+"speed": 8.0
+}, {
+"frames": [  ],
 "loop": true,
 "name": "level_2",
 "speed": 20.0
@@ -20,11 +24,6 @@ animations = [ {
 "loop": true,
 "name": "level_3",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "level_1",
-"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -41,7 +40,7 @@ __meta__ = {
 material = ExtResource( 1 )
 frames = SubResource( 1 )
 animation = "level_1"
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
