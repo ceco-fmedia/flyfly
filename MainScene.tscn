@@ -113,13 +113,13 @@ position = Vector2( 1107.7, 289.043 )
 position = Vector2( 646.819, 288.13 )
 
 [node name="engine" parent="." instance=ExtResource( 5 )]
-position = Vector2( -454.362, 118.734 )
+position = Vector2( -365.432, 116.255 )
 
 [node name="lights" parent="." instance=ExtResource( 4 )]
-position = Vector2( -384.26, -136.895 )
+position = Vector2( -301.288, -135.429 )
 
 [node name="gravity_generator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 163.965, 609.866 )
+position = Vector2( 196.545, 615.867 )
 
 [node name="fire_suppression1" parent="." instance=ExtResource( 9 )]
 position = Vector2( -488.529, 393.17 )

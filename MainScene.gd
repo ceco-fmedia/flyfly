@@ -108,6 +108,7 @@ func fix_utility(utility):
 			var node = get_node(utility)
 			node.change_level(UTILITY_LIST[utility]['level'])
 			node.get_node("HP").visible = true
+			restore_env(utility)
 			
 			
 	pass
@@ -175,7 +176,7 @@ func _process(_delta):
 					node.get_node("HP").scale.x = UTILITY_LIST[utility]['health']/100.0
 			elif UTILITY_LIST[utility]['level'] == 3:
 				node.get_node("HP").visible = false
-			restore_env(utility)
+			
 	for utility in ['hull', 'hull2']:
 		var node = get_node(utility)
 		if node.has_node("HP"):

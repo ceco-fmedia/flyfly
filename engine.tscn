@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/temp/o2_level_1.png" type="Texture" id=1]
+[ext_resource path="res://assets/Background/Lighting/Engine_Light02.png" type="Texture" id=1]
 [ext_resource path="res://assets/temp/o2_level_3.jpg" type="Texture" id=2]
 [ext_resource path="res://assets/temp/o2_level_2.jpg" type="Texture" id=3]
 [ext_resource path="res://oxygen_scrubber.gd" type="Script" id=4]
 [ext_resource path="res://assets/Platform/Platform.png" type="Texture" id=5]
+[ext_resource path="res://assets/Background/Lighting/Engine_Light01.png" type="Texture" id=6]
+[ext_resource path="res://blending/Add.tres" type="Material" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -13,20 +15,19 @@ animations = [ {
 "name": "level_2",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "level_1",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "level_3",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "level_1",
+"speed": 24.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 43.0
-height = 94.0
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 195.086, 121.819 )
 
 [node name="engine" type="Area2D"]
 collision_layer = 2
@@ -36,8 +37,11 @@ __meta__ = {
 }
 
 [node name="Anim" type="AnimatedSprite" parent="."]
+material = ExtResource( 7 )
 frames = SubResource( 1 )
 animation = "level_1"
+frame = 1
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 1, 1.01644 )
