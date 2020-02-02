@@ -1,0 +1,37 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0002.png" type="Texture" id=1]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0006.png" type="Texture" id=2]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0005.png" type="Texture" id=3]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0007.png" type="Texture" id=4]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0001.png" type="Texture" id=5]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0003.png" type="Texture" id=6]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0004.png" type="Texture" id=7]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0012.png" type="Texture" id=8]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0010.png" type="Texture" id=9]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0008.png" type="Texture" id=10]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0009.png" type="Texture" id=11]
+[ext_resource path="res://assets/Background/Sprinklers/Sprinklers0011.png" type="Texture" id=12]
+[ext_resource path="res://Sprinklers.gd" type="Script" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "ON",
+"speed": 24.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "OFF",
+"speed": 0.0
+} ]
+
+[node name="Sprinklers" type="Node2D"]
+script = ExtResource( 13 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "ON"
+frame = 6
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

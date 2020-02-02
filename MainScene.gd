@@ -126,6 +126,7 @@ func action_suppression():
 	if fire_sup1.canUse(player_instance):
 		utility = fire_sup1.attached_utility
 		fire_sup1.use()
+		get_node("Sprinklers_O2/AnimatedSprite").play("ON")
 		print(utility)
 	elif fire_sup2.canUse(player_instance):
 		print(utility)
