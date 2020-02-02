@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/Character/Move_24fps/Move_24fps0005.png" type="Texture" id=1]
 [ext_resource path="res://assets/Character/Move_24fps/Move_24fps0006.png" type="Texture" id=2]
@@ -57,6 +57,9 @@
 [ext_resource path="res://assets/Character/0G_Hit_24fps/0G_Hit_24fps0003.png" type="Texture" id=55]
 [ext_resource path="res://assets/Character/Hit03_24fps/Hit03_24fps0003.png" type="Texture" id=56]
 [ext_resource path="res://assets/Character/Hit03_24fps/Hit03_24fps0004.png" type="Texture" id=57]
+[ext_resource path="res://assets/Character/JumpStart_24fps/JumpStart_24fps0003.png" type="Texture" id=58]
+[ext_resource path="res://assets/Character/JumpStart_24fps/JumpStart_24fps0002.png" type="Texture" id=59]
+[ext_resource path="res://assets/Character/JumpStart_24fps/JumpStart_24fps0001.png" type="Texture" id=60]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -115,6 +118,11 @@ animations = [ {
 "name": "BoxTest",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 60 ), ExtResource( 59 ), ExtResource( 58 ) ],
+"loop": false,
+"name": "JumpStart",
+"speed": 24.0
+}, {
 "frames": [ ExtResource( 51 ), ExtResource( 52 ), ExtResource( 45 ), ExtResource( 54 ) ],
 "loop": false,
 "name": "Hit1",
@@ -146,7 +154,7 @@ script = ExtResource( 17 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 8.421, 30.526 )
 frames = SubResource( 1 )
-animation = "Hit0G"
+animation = "JumpStart"
 offset = Vector2( -8.421, -30.526 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

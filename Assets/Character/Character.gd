@@ -30,11 +30,6 @@ func wobble(maxRotation):
 func shake(amount, duration = 0):
 	$camera.shake(amount, duration)
 
-func hit():
-	if not hitting:
-		hitting = true
-		emit_signal("action_pressed")
-
 func _physics_process(delta):
 	var actionPressed = Input.is_action_just_pressed("ui_select")
 	var leftPressed = Input.is_action_pressed("ui_left")
@@ -62,11 +57,13 @@ func _physics_process(delta):
 				velocity.x = 0
 				velocity.y = 10
 				if not hitting:
-					hit()
+					hitting = true
 					anim = hitAnimations[1 + randi() % 3]
 			else:
 				if jumpPressed:
 					velocity.y = -JUMP_FORCE
+					anim = "JumpStart"
+					currentAnim = anim
 				if leftPressed:
 					velocity.x = -LAND_SIDE_SPEED
 				elif rightPressed:
@@ -107,22 +104,27 @@ func _physics_process(delta):
 			$sprite.set_flip_h(false)
 		elif rightPressed:
 			$sprite.set_flip_h(true)
-		if landed:
-			if (leftPressed or rightPressed) and abs(velocity.x) > 20 and not hitting:
-				anim = "MoveSide"
-		elif grabbed:
-			$sprite.set_flip_h(grabbed < 0)
-			if downPressed:
-				anim = "GrabSlideFast"
+		if not hitting:
+			if landed:
+				if jumpPressed:
+					anim = "JumpStart"
+				elif (leftPressed or rightPressed) and abs(velocity.x) > 20:
+					anim = "MoveSide"
+			elif grabbed:
+				$sprite.set_flip_h(grabbed < 0)
+				if downPressed:
+					anim = "GrabSlideFast"
+				else:
+					anim = "GrabSlide"
 			else:
-				anim = "GrabSlide"
-		else:
-			if abs(velocity.y) < 50:
-				anim = "HighPoint"
-			elif velocity.y < 0:
-				anim = "Jump"
-			else:
-				anim = "Fall"
+				if currentAnim == "JumpStart":
+					anim = currentAnim
+				elif abs(velocity.y) < 50:
+					anim = "HighPoint"
+				elif velocity.y < 0:
+					anim = "Jump"
+				else:
+					anim = "Fall"
 	else:
 		var isJump = false
 		if grabbed:
@@ -159,8 +161,8 @@ func _physics_process(delta):
 			else:
 				velocity *= 0
 		else:
-			if not hitting and actionPressed:
-				hit()
+			if hitting or actionPressed:
+				hitting = true
 			else:
 				if upPressed:
 					if velocity.y > -ZEROG_MAX_VELOCITY:
@@ -252,8 +254,7 @@ func _physics_process(delta):
 			anim = "Idle0G"
 		$CollisionShape2D.rotation_degrees = $sprite.rotation_degrees
 	
-	if anim != currentAnim:
-		$sprite.play(anim)
+	$sprite.play(anim)
 
 func setGravity(isOn):
 	hasGravity = isOn
@@ -268,9 +269,13 @@ func _ready() :
 
 
 func _on_sprite_animation_finished():
-	if $sprite.animation in hitAnimations:
+	var anim = $sprite.animation
+	if anim in hitAnimations:
 		hitting = false
+		emit_signal("action_pressed")
 		if hasGravity:
 			$sprite.play("Idle")
 		else:
 			$sprite.play("Idle0G")
+	elif anim == "JumpStart":
+		$sprite.play("Jump")
