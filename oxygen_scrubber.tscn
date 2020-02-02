@@ -23,18 +23,15 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 35.5933
-height = 150.168
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 143.999, 147.014 )
 
 [node name="oxygen_scrubber" type="Area2D"]
 collision_layer = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Anim" type="AnimatedSprite" parent="."]
+visible = false
 frames = SubResource( 1 )
 animation = "level_1"
 
