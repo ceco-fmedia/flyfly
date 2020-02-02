@@ -11,16 +11,18 @@ export(float) var JUMP_FORCE = 600.0
 export(float) var LAND_SIDE_SPEED = 200.0
 export(float) var AIR_SIDE_ACCELERATION = 400.0
 export(float) var ZEROG_MAX_VELOCITY = 30
-# export(float) var ZEROG_CRAWL_VELOCITY = 60
 export(float) var ZEROG_ACCELERATION = 30
 export(float) var ZEROG_JUMP_VELOCITY = 250
+var ZEROG_JUMP_DIAGONAL_VELOCITY = 0.0
 signal action_pressed
 var velocity = Vector2()
+var upVector = Vector2(0, -1)
+var hitAnimations = ["Hit0G", "Hit1", "Hit2", "Hit3"]
 var landed = false
 var grabbed = 0
-var upVector = Vector2(0, -1)
 var hasGravity = true
 var grabLeftTime = 0
+var hitting = false
 
 func wobble(maxRotation):
 	$camera.wobble(maxRotation)
@@ -28,17 +30,22 @@ func wobble(maxRotation):
 func shake(amount, duration = 0):
 	$camera.shake(amount, duration)
 
-func _physics_process(delta):
-	var actionPressed = Input.is_action_just_pressed("ui_focus_next")
-	if actionPressed:
+func hit():
+	if not hitting:
+		hitting = true
 		emit_signal("action_pressed")
-		#TODO CEC refactor this however makes sense
+
+func _physics_process(delta):
+	var actionPressed = Input.is_action_just_pressed("ui_select")
 	var leftPressed = Input.is_action_pressed("ui_left")
 	var rightPressed = Input.is_action_pressed("ui_right")
 	var upPressed = Input.is_action_pressed("ui_up")
 	var jumpPressed = Input.is_action_just_pressed("ui_up")
 	var downPressed = Input.is_action_pressed("ui_down")
+	var currentAnim = $sprite.animation
 	var anim = "Idle"
+	if hitting:
+		anim = currentAnim
 	if Input.is_action_just_pressed("ui_accept"):
 		setGravity(!hasGravity)
 	
@@ -51,14 +58,21 @@ func _physics_process(delta):
 		else:
 			velocity.y += GRAVITY * delta
 		if landed:
-			if jumpPressed:
-				velocity.y = -JUMP_FORCE
-			if leftPressed:
-				velocity.x = -LAND_SIDE_SPEED
-			elif rightPressed:
-				velocity.x = LAND_SIDE_SPEED
+			if actionPressed:
+				velocity.x = 0
+				velocity.y = 10
+				if not hitting:
+					hit()
+					anim = hitAnimations[1 + randi() % 3]
 			else:
-				velocity.x = 0;
+				if jumpPressed:
+					velocity.y = -JUMP_FORCE
+				if leftPressed:
+					velocity.x = -LAND_SIDE_SPEED
+				elif rightPressed:
+					velocity.x = LAND_SIDE_SPEED
+				else:
+					velocity.x = 0;
 		elif grabbed and jumpPressed:
 			velocity.y = -JUMP_FORCE / 2
 			velocity.x = JUMP_FORCE * grabbed / 2
@@ -77,7 +91,7 @@ func _physics_process(delta):
 				else:
 					velocity.x = LAND_SIDE_SPEED
 		velocity = move_and_slide(velocity, upVector, true)
-		landed = is_on_floor()
+		landed = is_on_floor() or hitting
 		if not landed and is_on_wall():
 			for i in range(get_slide_count()):
 				var collision = get_slide_collision(i)
@@ -89,9 +103,12 @@ func _physics_process(delta):
 					break
 		else:
 			grabbed = 0
-		$sprite.set_flip_h(velocity.x >= 0)
+		if leftPressed:
+			$sprite.set_flip_h(false)
+		elif rightPressed:
+			$sprite.set_flip_h(true)
 		if landed:
-			if abs(velocity.x) > 20:
+			if (leftPressed or rightPressed) and abs(velocity.x) > 20 and not hitting:
 				anim = "MoveSide"
 		elif grabbed:
 			$sprite.set_flip_h(grabbed < 0)
@@ -107,8 +124,8 @@ func _physics_process(delta):
 			else:
 				anim = "Fall"
 	else:
+		var isJump = false
 		if grabbed:
-			var isJump = false
 			if leftPressed:
 				if grabbed == RIGHT:
 					isJump = true
@@ -135,41 +152,46 @@ func _physics_process(delta):
 					grabLeftTime = 0
 				velocity.y = 1
 			if isJump:
-				velocity = (velocity * ZEROG_JUMP_VELOCITY).clamped(ZEROG_JUMP_VELOCITY)
-				print(velocity)
+				if velocity.x and velocity.y:
+					velocity *= ZEROG_JUMP_DIAGONAL_VELOCITY
+				else:
+					velocity *= ZEROG_JUMP_VELOCITY;
 			else:
 				velocity *= 0
 		else:
-			if upPressed:
-				velocity.y -= ZEROG_ACCELERATION * delta
-				if velocity.y < -ZEROG_MAX_VELOCITY:
-					velocity.y = -ZEROG_MAX_VELOCITY
-			elif downPressed:
-				if velocity.y < ZEROG_MAX_VELOCITY:
-					velocity.y += ZEROG_ACCELERATION * delta
-					if velocity.y > ZEROG_MAX_VELOCITY:
-						velocity.y = ZEROG_MAX_VELOCITY
-			if leftPressed:
-				if velocity.x > -ZEROG_MAX_VELOCITY:
+			if not hitting and actionPressed:
+				hit()
+			else:
+				if upPressed:
+					if velocity.y > -ZEROG_MAX_VELOCITY:
+						velocity.y -= ZEROG_ACCELERATION * delta
+						if velocity.y < -ZEROG_MAX_VELOCITY:
+							velocity.y = -ZEROG_MAX_VELOCITY
+				elif downPressed:
+					if velocity.y < ZEROG_MAX_VELOCITY:
+						velocity.y += ZEROG_ACCELERATION * delta
+						if velocity.y > ZEROG_MAX_VELOCITY:
+							velocity.y = ZEROG_MAX_VELOCITY
+				if leftPressed:
+					if velocity.x > -ZEROG_MAX_VELOCITY:
+						velocity.x -= ZEROG_ACCELERATION * delta
+						if velocity.x < -ZEROG_MAX_VELOCITY:
+							velocity.x = -ZEROG_MAX_VELOCITY
+				elif rightPressed:
+					if velocity.x < ZEROG_MAX_VELOCITY:
+						velocity.x += ZEROG_ACCELERATION * delta
+						if velocity.x > ZEROG_MAX_VELOCITY:
+							velocity.x = ZEROG_MAX_VELOCITY
+				
+				if velocity.x > ZEROG_MAX_VELOCITY and not rightPressed:
 					velocity.x -= ZEROG_ACCELERATION * delta
-					if velocity.x < -ZEROG_MAX_VELOCITY:
-						velocity.x = -ZEROG_MAX_VELOCITY
-			elif rightPressed:
-				if velocity.x < ZEROG_MAX_VELOCITY:
+				elif velocity.x < -ZEROG_MAX_VELOCITY and not leftPressed:
 					velocity.x += ZEROG_ACCELERATION * delta
-					if velocity.x > ZEROG_MAX_VELOCITY:
-						velocity.x = ZEROG_MAX_VELOCITY
-			
-			if velocity.x > ZEROG_MAX_VELOCITY and not leftPressed:
-				velocity.x -= ZEROG_ACCELERATION * delta
-			elif velocity.x < -ZEROG_MAX_VELOCITY and not rightPressed:
-				velocity.x += ZEROG_ACCELERATION * delta
-			if velocity.y > ZEROG_MAX_VELOCITY and not upPressed:
-				velocity.y -= ZEROG_ACCELERATION * delta
-			elif velocity.y < -ZEROG_MAX_VELOCITY and not downPressed:
-				velocity.y += ZEROG_ACCELERATION * delta
+				if velocity.y > ZEROG_MAX_VELOCITY and not upPressed:
+					velocity.y -= ZEROG_ACCELERATION * delta
+				elif velocity.y < -ZEROG_MAX_VELOCITY and not downPressed:
+					velocity.y += ZEROG_ACCELERATION * delta
 
-		
 		velocity = move_and_slide(velocity, upVector)
 
 		var collisions = get_slide_count()
@@ -193,7 +215,9 @@ func _physics_process(delta):
 		else:
 			grabbed = 0
 		
-		if grabbed:
+		if hitting:
+			anim = "Hit0G"
+		elif grabbed:
 			anim = "Grab0G"
 			if grabbed == LEFT:
 				$sprite.rotation_degrees = 90
@@ -228,12 +252,25 @@ func _physics_process(delta):
 			anim = "Idle0G"
 		$CollisionShape2D.rotation_degrees = $sprite.rotation_degrees
 	
-	
-	$sprite.play(anim)
+	if anim != currentAnim:
+		$sprite.play(anim)
 
 func setGravity(isOn):
 	hasGravity = isOn
 	if isOn:
-		rotation = 0
+		$CollisionShape2D.rotation = 0
+		$sprite.rotation = 0
 	else:
 		$sprite.set_flip_h(false)
+	
+func _ready() :
+	ZEROG_JUMP_DIAGONAL_VELOCITY = sqrt(ZEROG_JUMP_VELOCITY * ZEROG_JUMP_VELOCITY / 2)
+
+
+func _on_sprite_animation_finished():
+	if $sprite.animation in hitAnimations:
+		hitting = false
+		if hasGravity:
+			$sprite.play("Idle")
+		else:
+			$sprite.play("Idle0G")
