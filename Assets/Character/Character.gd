@@ -7,7 +7,7 @@ const DOWN = 4;
 export(float) var GRAVITY = 1500.0
 export(float) var GRAB_VELOCITY = 100
 export(float) var GRAB_SLIDE_VELOCITY = 700
-export(float) var JUMP_FORCE = 900.0
+export(float) var JUMP_FORCE = 950.0
 export(float) var LAND_SIDE_SPEED = 600.0
 export(float) var AIR_SIDE_ACCELERATION = 1000.0
 export(float) var ZEROG_MAX_VELOCITY = 30
@@ -273,13 +273,14 @@ func _physics_process(delta):
 	$sprite.play(anim)
 
 func setGravity(isOn):
-	hasGravity = isOn
-	if isOn:
-		$CollisionShape2D.rotation = 0
-		$sprite.rotation = 0
-	else:
-		$sprite.set_flip_h(false)
-	hitting = false
+	if hasGravity != isOn:
+		hasGravity = isOn
+		if isOn:
+			$CollisionShape2D.rotation = 0
+			$sprite.rotation = 0
+		else:
+			$sprite.set_flip_h(false)
+		hitting = false
 	
 func _ready() :
 	ZEROG_JUMP_DIAGONAL_VELOCITY = sqrt(ZEROG_JUMP_VELOCITY * ZEROG_JUMP_VELOCITY / 2)
@@ -288,8 +289,9 @@ func _ready() :
 
 func _on_sprite_animation_finished():
 	var anim = $sprite.animation
+	hitting = false
+	grabbed = false
 	if anim in hitAnimations:
-		hitting = false
 		emit_signal("action_pressed")
 		if hasGravity:
 			$sprite.play("Idle")

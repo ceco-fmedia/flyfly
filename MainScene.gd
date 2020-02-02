@@ -59,7 +59,6 @@ func reset_usage():
 
 	
 func _ready():
-	self._subscribe_to_usage_signals()
 	self._initilize_utilities()
 	o2_instance = get_node("oxygen_scrubber")
 	engine_instance = get_node("engine")
@@ -76,7 +75,6 @@ func _ready():
 	fire_sup3.attach_to_utility("lights")
 	fire_sup4 = get_node("fire_suppression4")
 	fire_sup4.attach_to_utility("gravity_generator")
-	subscribe_to_suppression()
 	get_node("character").connect("action_pressed", self, "player_action")
 	$DirectorTimer.start()
 
@@ -88,22 +86,22 @@ func player_action():
 	return false
 	
 func action_fix():
-	if can_use_engine:
+	if engine_instance.canUse(player_instance):
 		fix_utility("engine")
 		return true
-	elif can_use_gravity_generator:
+	elif grav_instance.canUse(player_instance):
 		fix_utility("gravity_generator")
 		return true
-	elif can_use_hull:
+	elif hull_instance.canUse(player_instance):
 		fix_utility("hull")
 		return true
-	elif can_use_hull2:
+	elif hull2_instance.canUse(player_instance):
 		fix_utility("hull2")
 		return true
-	elif can_use_lights:
+	elif lights_instance.canUse(player_instance):
 		fix_utility("lights")
 		return true
-	elif can_use_scrubber:
+	elif o2_instance.canUse(player_instance):
 		fix_utility("oxygen_scrubber")
 		return true
 	return false
@@ -123,21 +121,18 @@ func fix_utility(utility):
 			restore_env(utility)
 			
 			
-	pass
-	
 func action_suppression():
 	var utility = null
-	print(can_use_fire_sup1,can_use_fire_sup2,can_use_fire_sup3,can_use_fire_sup4)
-	if can_use_fire_sup1:
+	if fire_sup1.canUse(player_instance):
 		utility = get_node("fire_suppression1").attached_utility
 		print(utility)
-	elif can_use_fire_sup2:
+	elif fire_sup2.canUse(player_instance):
 		print(utility)
 		utility = get_node("fire_suppression2").attached_utility
-	elif can_use_fire_sup3:
+	elif fire_sup3.canUse(player_instance):
 		print(utility)
 		utility = get_node("fire_suppression3").attached_utility
-	elif can_use_fire_sup4:
+	elif fire_sup4.canUse(player_instance):
 		print(utility)
 		utility = get_node("fire_suppression4").attached_utility
 	if utility:
@@ -148,40 +143,6 @@ func action_suppression():
 				fire.queue_free()
 				print(fire_list)
 	return false
-
-func subscribe_to_suppression():
-	for x in ["1","2","3","4"]:
-		var unit = "fire_suppression"+x
-		get_node(unit).connect("can_use", self, "_infront_fire_suppression"+x)
-		get_node(unit).connect("cannot_use", self, "_out_of_fire_suppression"+x)
-		
-func _infront_fire_suppression1():
-	reset_usage()
-	can_use_fire_sup1 = true
-	
-func _out_of_fire_suppression1():
-	can_use_fire_sup1 = false
-	
-func _infront_fire_suppression2():
-	reset_usage()
-	can_use_fire_sup2 = true
-	
-func _out_of_fire_suppression2():
-	can_use_fire_sup2 = false
-	
-func _infront_fire_suppression3():
-	reset_usage()
-	can_use_fire_sup3 = true
-	
-func _out_of_fire_suppression3():
-	can_use_fire_sup3 = false
-	
-func _infront_fire_suppression4():
-	reset_usage()
-	can_use_fire_sup4 = true
-	
-func _out_of_fire_suppression4():
-	can_use_fire_sup4 = false
 
 func _process(_delta):
 	for utility in ['oxygen_scrubber','gravity_generator','lights', 'engine']:
@@ -207,53 +168,6 @@ func restore_env(utility):
 	elif utility == 'oxygen_scrubber':
 		restore_o2()
 
-func _infront_oxygen_scrubber():
-	reset_usage()
-	can_use_scrubber = true
-	
-func _out_of_oxygen_scrubber():
-	can_use_scrubber = false
-
-func _infront_gravity_generator():
-	reset_usage()
-	can_use_gravity_generator = true
-	
-func _out_of_gravity_generator():
-	can_use_gravity_generator = false
-	
-func _infront_engine():
-	reset_usage()
-	can_use_engine = true
-	
-func _out_of_engine():
-	can_use_engine = false
-	
-func _infront_lights():
-	reset_usage()
-	can_use_lights = true
-	
-func _out_of_lights():
-	can_use_lights = false
-	
-func _infront_hull():
-	reset_usage()
-	can_use_hull = true
-	
-func _out_of_hull():
-	can_use_hull = false
-	
-func _infront_hull2():
-	reset_usage()
-	can_use_hull2 = true
-	
-func _out_of_hull2():
-	can_use_hull2 = false
-	
-func _subscribe_to_usage_signals():
-	for utility in UTILITY_LIST:
-		get_node(utility).connect("can_use", self, "_infront_"+utility)
-		get_node(utility).connect("cannot_use", self, "_out_of_"+utility)
-		
 func _initilize_utilities():
 	for utility in UTILITY_LIST:
 		UTILITY_LIST[utility] = {'level':1, 'health':100}	
@@ -447,8 +361,3 @@ func run_alarms():
 		get_node("Alarm_G").stop_alarm()
 		
 		
-
-	
-
-	
-	
